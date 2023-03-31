@@ -2,7 +2,30 @@ from schemas import schema
 from models import model
 from database import SessionLocal, engine
 from utils import customer_crud, gamification_crud, tier_crud
+
 schema.Base.metadata.create_all(bind=engine)
+
+from cryptography.fernet import Fernet
+key = Fernet.generate_key()
+with open("./secret.key", "wb") as key_file:
+    key_file.write(key)
+
+def load_key():
+    """
+    Load the previously generated key
+    """
+    return open("secret.key", "rb").read()
+
+def encrypt_message(message):
+    """
+    Encrypts a message
+    """
+    key = load_key()
+    encoded_message = message.encode()
+    f = Fernet(key)
+    encrypted_message = f.encrypt(encoded_message)
+
+    return encrypted_message.decode()
 
 tiers = [
     {
@@ -104,11 +127,18 @@ customers = [
 ]
 
 for customer in customers:
-    customer_crud.create_customer(model.Customer(
+    customer_model = model.Customer(
         name = customer['name'],
         type = customer['type'],
-        tier_picked = customer['tier_picked']
-   ).copy(),  SessionLocal())
+        tier_picked = customer['tier_picked'],
+        token = encrypt_message(str({
+            "name": customer['name'],
+            "type": customer['type'],
+            "tier_picked": customer['tier_picked']
+        }))
+    )
+    customer_crud.create_customer(customer_model.copy(),  SessionLocal())
+   
 
 gamifications = [
     {
@@ -145,6 +175,11 @@ gamifications = [
         "name": "Review",
         "description": "A review gamification feature that can be modified to reward the customer after it reviews a product",
         "tier": 2
+    },
+    {
+        "name": "Coupon",
+        "description": "A coupon reward feature that can be modified to offer the customer a discount",
+        "tier": 1
     }
 ]
 

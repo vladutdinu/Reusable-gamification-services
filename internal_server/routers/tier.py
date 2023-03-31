@@ -1,7 +1,6 @@
 from fastapi import APIRouter, Depends, HTTPException, Response
 from utils import tier_crud
 from models import model
-from schemas import schema
 from database import SessionLocal
 
 # Dependency

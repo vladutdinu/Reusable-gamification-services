@@ -1,6 +1,4 @@
 from sqlalchemy import Boolean, Column, ForeignKey, Integer, String
-from sqlalchemy.orm import relationship
-
 from database import Base
 
 class Tier(Base):
@@ -25,3 +23,4 @@ class Customer(Base):
     name = Column(String)
     type = Column(String)
     tier_picked = Column(Integer, ForeignKey("tiers.id"))
+    token = Column(String)

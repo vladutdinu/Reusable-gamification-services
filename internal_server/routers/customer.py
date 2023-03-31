@@ -2,7 +2,6 @@ from typing import List
 from fastapi import APIRouter, Depends, HTTPException, Response
 from utils import customer_crud
 from models import model
-from schemas import schema
 from database import SessionLocal
 
 # Dependency
@@ -23,18 +22,26 @@ async def create_item(customer: model.Customer, db: get_db = Depends()):
     return customer_crud.create_customer(customer, db)
 
 @router.get("/{customer_id}", response_model=model.Customer)
-async def get_customer(customer_id: int, db: get_db = Depends()):
-    result = customer_crud.get_customer(customer_id, db)
+async def get_customer_by_id(customer_id: int, db: get_db = Depends()):
+    result = customer_crud.get_customer_by_id(customer_id, db)
     if result:
         return result
     else:
         raise HTTPException(status_code=400, detail="Customer doesnt exist")
 
-@router.get("/customer/{customer_name}", response_model=model.Customer)
-async def get_customer(customer_name: str, db: get_db = Depends()):
-    result = customer_crud.get_customer(customer_name, db)
+@router.get("/{customer_name}", response_model=model.Customer)
+async def get_customer_by_name(customer_name: str, db: get_db = Depends()):
+    result = customer_crud.get_customer_by_name(customer_name, db)
     if result:
         return result
+    else:
+        raise HTTPException(status_code=400, detail="Customer doesnt exist")
+    
+@router.get("/tiers/{customer_token}", response_model=model.Tier_Picked)
+async def get_customer_tier(customer_token: bytes, db: get_db = Depends()):
+    result = customer_crud.get_customer_tier(customer_token, db)
+    if result:
+        return model.Tier_Picked(tier=result.tier_picked)
     else:
         raise HTTPException(status_code=400, detail="Customer doesnt exist")
 

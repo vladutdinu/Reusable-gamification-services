@@ -1,0 +1,5 @@
+cryptography==35.0.0
+fastapi==0.95.0
+pydantic==1.8.2
+SQLAlchemy==1.4.7
+uvicorn==0.20.0

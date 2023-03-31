@@ -1,4 +1,4 @@
-from typing import Optional, List, Union
+from typing import Optional, List
 from pydantic import BaseModel
 
 class Tier(BaseModel):
@@ -8,6 +8,9 @@ class Tier(BaseModel):
 
     class Config:
         orm_mode = True
+
+class Tier_Picked(BaseModel):
+    tier: int
 
 class Gamification(BaseModel):
     id: Optional[int]
@@ -24,6 +27,7 @@ class Customer(BaseModel):
     name: str
     type: str
     tier_picked: int
+    token: Optional[str]
 
     class Config:
         orm_mode = True
