@@ -2,7 +2,7 @@ from fastapi import APIRouter, Depends, HTTPException, Response
 from utils import battlepass_crud
 from models import model
 from database import SessionLocal
-
+from datetime import date
 # Dependency
 
 
@@ -33,9 +33,9 @@ async def get_battlepass(battlepass_id: int, db: get_db = Depends()):
     else:
         raise HTTPException(status_code=400, detail="Battlepass doesnt exist")
 
-@router.get("/all/{battlepass_targets_id}", response_model=model.BattlepassTarget)
-async def get_battlepass_with_targets(battlepass_id: int, db: get_db = Depends()):
-    battlepass = battlepass_crud.get_battlepass_with_targes(battlepass_id, db)
+@router.post("/all/", response_model=model.BattlepassTarget)
+async def get_battlepass_with_targets(battlepass_requester: model.BattlepassRequester, db: get_db = Depends()):
+    battlepass = battlepass_crud.get_battlepass_with_targes(battlepass_requester.current_date, battlepass_requester.customer_id, db)
     return battlepass.__dict__
 
 @router.put("/", response_model=model.Battlepass)
