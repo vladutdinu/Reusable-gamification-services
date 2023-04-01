@@ -16,7 +16,7 @@ async def SignUp(user:model.UserSignUp, db: get_db = Depends()):
     result = user_crud.get_user_by_email(user.email, db)
     if result:
         raise HTTPException(status_code=400, detail="User with this email already exists")
-    return user_crud.create_user(model.User(name=user.name,password=user.password,email=user.email,ranking=user_crud.get_last_ranking(db)+1), db)
+    return user_crud.create_user(model.User(name=user.name,password=user.password,email=user.email), db)
 @router.post("/logIn")
 async def LogIn(user:model.UserLogIn, db: get_db = Depends()):
     result = user_crud.get_user_by_email(user.email, db)
