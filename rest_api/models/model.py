@@ -42,7 +42,7 @@ class Quest(BaseModel):
     points: int
     start_date: date
     end_date: date
-    done: int
+    done: Optional[int] 
 
 class Coupon(BaseModel):
     id: Optional[int]
@@ -52,14 +52,14 @@ class Coupon(BaseModel):
     code: str
     start_date: date
     end_date: date
-    done: int
+    done: Optional[int] 
 
 class Target(BaseModel):
     id: Optional[int] 
     product_id: int #specific producs for each customers preference
     target_points: int
     battlepass_id: int
-    done: int
+    done: Optional[int] 
 
 class Battlepass(BaseModel):
     id: Optional[int] 
