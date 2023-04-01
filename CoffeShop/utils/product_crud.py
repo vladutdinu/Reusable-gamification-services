@@ -16,9 +16,13 @@ def create_product(product: model.Product, db: Session):
     db.commit()
     db.refresh(new_tier)
     return new_tier
-def get_product(product_id: int, db: Session):
+def get_product_by_id(product_id: int, db: Session):
     product = db.query(schema.Product).filter(schema.Product.id == product_id).first()
     return product
+def get_product_by_name(product_name: str, db: Session):
+    product = db.query(schema.Product).filter(schema.Product.name == product_name).first()
+    return product
+
 def update_product(product: model.Product, db: Session):
     result = db.query(schema.Product).filter(schema.Product.id == product.id).update(
         {

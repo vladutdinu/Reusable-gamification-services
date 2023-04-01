@@ -21,6 +21,7 @@ class Product(BaseModel):
 class User(BaseModel):
     id:int
     name:str
+    email:str
     password:str
     ranking:int
 

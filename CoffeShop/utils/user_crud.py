@@ -13,8 +13,14 @@ def create_user(user: model.User, db: Session):
     db.commit()
     db.refresh(new_tier)
     return new_tier
-def get_user(user_id: int, db: Session):
+def get_user_by_id(user_id: int, db: Session):
     user = db.query(schema.User).filter(schema.User.id == user_id).first()
+    return user
+def get_user_by_name(user_name: str, db: Session):
+    user = db.query(schema.User).filter(schema.User.name == user_name).first()
+    return user
+def get_user_by_email(user_email: str, db: Session):
+    user = db.query(schema.User).filter(schema.User.email == user_email).first()
     return user
 def update_user(user: model.User, db: Session):
     result = db.query(schema.User).filter(schema.User.id == user.id).update(

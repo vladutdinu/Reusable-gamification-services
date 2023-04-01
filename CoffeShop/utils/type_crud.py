@@ -15,6 +15,9 @@ def create_type(type: model.Type, db: Session):
 def get_type(type_id: int, db: Session):
     type = db.query(schema.Type).filter(schema.Type.id == type_id).first()
     return type
+def get_type_by_name(type_name: str, db: Session):
+    type = db.query(schema.Type).filter(schema.Type.typeOf == type_name).first()
+    return type
 def update_type(type: model.Type, db: Session):
     result = db.query(schema.Type).filter(schema.Type.id == type.id).update(
         {
