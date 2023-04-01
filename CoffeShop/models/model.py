@@ -22,6 +22,6 @@ class User(BaseModel):
     id:int
     name:str
     password:str
-    products:list
+    
     ranking:int
 
