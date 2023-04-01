@@ -35,6 +35,13 @@ async def get_user_by_email(user_email: str, db: get_db = Depends()):
         return result.__dict__
     else:
         raise HTTPException(status_code=400, detail="User doesnt exist")
+@router.get("/id/{user_id}", response_model=model.User)
+async def get_user_by_id(user_id: int, db: get_db = Depends()):
+    result = user_crud.get_user_by_id(user_id, db)
+    if result:
+        return result.__dict__
+    else:
+        raise HTTPException(status_code=400, detail="User doesnt exist")
 @router.put("/", response_model=model.User)
 async def update_user(user: model.User, db: get_db = Depends()):
     result = user_crud.update_user(user, db)
