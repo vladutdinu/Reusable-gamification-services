@@ -10,7 +10,7 @@ def get_db():
     finally:
         db.close()
 
-router = APIRouter(prefix="/product", tags=["Customer Endpoints"])
+router = APIRouter(prefix="/product", tags=["Product Endpoints"])
 @router.post("/")
 async def create_item(product: model.Product, db: get_db = Depends()):
     result = product_crud.get_product_by_id(product.id, db)
@@ -44,5 +44,12 @@ async def delete_product(product_id: int, db: get_db = Depends()):
     result = product_crud.delete_product(product_id, db)
     if result:
         return Response("Product deleted")
+    else:
+        raise HTTPException(status_code=400, detail="Product doesnt exist")
+@router.get("/all/", response_model=List[model.Product])
+async def get_all_products( db: get_db = Depends()):
+    results = product_crud.get_all_products(db)
+    if results:
+        return [result.__dict__ for result in results]
     else:
         raise HTTPException(status_code=400, detail="Product doesnt exist")

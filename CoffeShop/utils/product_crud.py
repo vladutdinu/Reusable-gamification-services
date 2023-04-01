@@ -38,3 +38,6 @@ def delete_product(product_id: int, db: Session):
     result = db.query(schema.Product).filter(schema.Product.id == product_id).delete()
     db.commit()
     return result
+def get_all_products( db: Session):
+    product = db.query(schema.Product).all()
+    return product
