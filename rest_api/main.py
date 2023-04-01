@@ -1,10 +1,17 @@
 from fastapi import Depends, FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 from routers import token, coupon, quest, battlepass, customer, monster
 import models, schemas
 from database import SessionLocal, engine
 
 app = FastAPI()
-
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 app.include_router(token.router)
 app.include_router(coupon.router)
 app.include_router(quest.router)

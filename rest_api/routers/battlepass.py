@@ -33,7 +33,7 @@ async def get_battlepass(battlepass_id: int, db: get_db = Depends()):
     else:
         raise HTTPException(status_code=400, detail="Battlepass doesnt exist")
 
-@router.get("/all/{battlepass_targets_id}", response_model=model.BattlepassTarget)
+@router.get("/all/{battlepass_id}", response_model=model.BattlepassTarget)
 async def get_battlepass_with_targets(battlepass_id: int, db: get_db = Depends()):
     battlepass = battlepass_crud.get_battlepass_with_targes(battlepass_id, db)
     return battlepass.__dict__
