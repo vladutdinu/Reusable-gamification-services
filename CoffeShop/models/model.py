@@ -18,5 +18,10 @@ class Product(BaseModel):
     description:str
     price:int
     type:Type
-   
+class User(BaseModel):
+    id:int
+    name:str
+    password:str
+    products:list
+    ranking:int
 
