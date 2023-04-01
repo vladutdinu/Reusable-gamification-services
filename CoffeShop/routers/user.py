@@ -11,17 +11,15 @@ def get_db():
         db.close()
 
 router = APIRouter(prefix="/user", tags=["User Endpoints"])
-@router.post("/")
+@router.post("/signUp")
 async def SignUp(user:model.UserSignUp, db: get_db = Depends()):
-    result = user_crud.get_user_by_email(user.email, get_db)
+    result = user_crud.get_user_by_email(user.email, db)
     if result:
         raise HTTPException(status_code=400, detail="User with this email already exists")
-    return user_crud.create_user(model.User(name=user.name,
-       password=user.password,
-       ranking=user_crud.get_last_ranking(db)+1), db)
-@router.post("/")
+    return user_crud.create_user(model.User(name=user.name,password=user.password,email=user.email,ranking=user_crud.get_last_ranking(db)+1), db)
+@router.post("/logIn")
 async def LogIn(user:model.UserLogIn, db: get_db = Depends()):
-    result = user_crud.get_user_by_email(user.email, get_db)
+    result = user_crud.get_user_by_email(user.email, db)
     if result:
         if result.password!=user.password:
             raise HTTPException(status_code=400, detail="Password incorect")
@@ -32,21 +30,21 @@ async def LogIn(user:model.UserLogIn, db: get_db = Depends()):
         raise HTTPException(status_code=400, detail="User with this email doesnt exist")
 @router.get("/{user_email}", response_model=model.User)
 async def get_user_by_email(user_email: str, db: get_db = Depends()):
-    result = user_crud.get_product_by_email(user_email, db)
+    result = user_crud.get_user_by_email(user_email, db)
     if result:
-        return result
+        return result.__dict__
     else:
         raise HTTPException(status_code=400, detail="User doesnt exist")
 @router.put("/", response_model=model.User)
 async def update_user(user: model.User, db: get_db = Depends()):
     result = user_crud.update_user(user, db)
     if result:
-        return user_crud.get_user_by_id(user.id, db)
+        return user_crud.get_user_by_id(user.id, db).__dict__
     else:
         raise HTTPException(status_code=400, detail="User doesnt exist")
 
-@router.delete("/{user_id}", response_model=model.Product)
-async def delete_product(user_id: int, db: get_db = Depends()):
+@router.delete("/{user_id}", response_model=model.User)
+async def delete_user(user_id: int, db: get_db = Depends()):
     result = user_crud.delete_user(user_id, db)
     if result:
         return Response("User deleted")

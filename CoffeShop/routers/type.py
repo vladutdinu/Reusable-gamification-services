@@ -32,7 +32,7 @@ async def update_product(type: model.Type, db: get_db = Depends()):
     else:
         raise HTTPException(status_code=400, detail="Product doesnt exist")
 
-@router.delete("/{type_id}", response_model=model.Customer)
+@router.delete("/{type_id}", response_model=model.Type)
 async def delete_customer(type_id: int, db: get_db = Depends()):
     result = type_crud.delete_type(type_id, db)
     if result:

@@ -6,6 +6,7 @@ def create_user(user: model.User, db: Session):
     new_tier = schema.User(
        
        name=user.name,
+       email=user.email,
        password=user.password,
        ranking=user.ranking
     )
@@ -17,8 +18,11 @@ def get_user_by_id(user_id: int, db: Session):
     user = db.query(schema.User).filter(schema.User.id == user_id).first()
     return user
 def get_last_ranking( db: Session):
-    ranking = db.query(schema.User).all()[:-1].ranking
-    return ranking
+    try:
+        ranking = db.query(schema.User).all()[-1].ranking
+        return ranking
+    except:
+        return 0
 def get_user_by_name(user_name: str, db: Session):
     user = db.query(schema.User).filter(schema.User.name == user_name).first()
     return user

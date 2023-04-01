@@ -13,15 +13,15 @@ def get_db():
 router = APIRouter(prefix="/product", tags=["Customer Endpoints"])
 @router.post("/")
 async def create_item(product: model.Product, db: get_db = Depends()):
-    result = product_crud.get_product(product.id, db)
+    result = product_crud.get_product_by_id(product.id, db)
     if result:
         raise HTTPException(status_code=400, detail="Product already exists")
-    return product_crud.create_customer(product, db)
+    return product_crud.create_product(product, db)
 @router.get("/{product_id}", response_model=model.Product)
 async def get_product_by_id(product_id: int, db: get_db = Depends()):
     result = product_crud.get_product_by_id(product_id, db)
     if result:
-        return result
+        return result.__dict__
     else:
         raise HTTPException(status_code=400, detail="Product doesnt exist")
 @router.get("/{product_name}", response_model=model.Product)

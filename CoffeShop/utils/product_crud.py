@@ -29,7 +29,7 @@ def update_product(product: model.Product, db: Session):
             "name":product.name,
             "description":product.description,
             "price":product.price,
-            "type":product.type.id
+            "type":product.type
         }
     )
     db.commit()
