@@ -24,6 +24,13 @@ class Token(BaseModel):
     qr_code: str
     token: str
 
+class Monster(BaseModel):
+    id: Optional[int] 
+    name: str
+
+class AllMonsters(BaseModel):
+    name: List[str]
+
 class Quest(BaseModel):
     id: Optional[int] 
     customer_id: int 
@@ -49,7 +56,7 @@ class Coupon(BaseModel):
 
 class Target(BaseModel):
     id: Optional[int] 
-    product_id: int
+    product_id: int #specific producs for each customers preference
     target_points: int
     battlepass_id: int
     done: int

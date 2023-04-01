@@ -34,10 +34,10 @@ def update_target(target: model.Target, db: Session):
     db.commit()
     return result
 
-def update_target_status(target: model.Target, db: Session):
+def update_target_status(target: model.Target, status: int, db: Session):
     result = db.query(schema.Target).filter(schema.Target.id == target.id).update(
         {
-            "done":1
+            "done": status
         }
     )
     db.commit()

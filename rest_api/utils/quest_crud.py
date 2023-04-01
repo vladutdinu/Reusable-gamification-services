@@ -31,8 +31,11 @@ def update_quest(quest: model.Quest, db: Session):
     result = db.query(schema.Quest).filter(schema.Quest.id == quest.id).update(
         {
            "quest": quest.quest,
+           "type": quest.type,
            "quantity": quest.quantity,
            "product_id": quest.product_id,
+           "quantity": quest.quantity,
+           "target_quantity": quest.target_quantity,
            "points": quest.points,
            "start_date": quest.start_date,
            "end_date": quest.end_date
@@ -41,10 +44,10 @@ def update_quest(quest: model.Quest, db: Session):
     db.commit()
     return result
 
-def update_quest_status(quest: model.Quest, db: Session):
+def update_quest_status(quest: model.Quest, status: int, db: Session):
     result = db.query(schema.Quest).filter(schema.Quest.id == quest.id).update(
         {
-           "done":1
+           "done": status
         }
     )
     db.commit()

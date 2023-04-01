@@ -1,9 +1,9 @@
 from schemas import schema
 from models import model
 from database import SessionLocal, engine
-from utils import token_crud, qr_code
+from utils import token_crud, qr_code, monster_crud
 import os
-
+import base64
 schema.Base.metadata.create_all(bind=engine)
 
 TOKEN = "token" #os.environ["TOKEN"]
@@ -20,3 +20,8 @@ for token in tokens:
         qr_code = token['qr_code'],
         token = token['token']
     ).copy(),  SessionLocal())
+
+for monster_path in os.listdir("./monstruleti"):
+    monster_crud.create_monster(model.Monster(
+        name=monster_path
+    ).copy(), SessionLocal())

@@ -1,5 +1,5 @@
 from fastapi import Depends, FastAPI
-from routers import token, coupon, quest, battlepass, customer
+from routers import token, coupon, quest, battlepass, customer, monster
 import models, schemas
 from database import SessionLocal, engine
 
@@ -10,3 +10,4 @@ app.include_router(coupon.router)
 app.include_router(quest.router)
 app.include_router(battlepass.router)
 app.include_router(customer.router)
+app.include_router(monster.router)

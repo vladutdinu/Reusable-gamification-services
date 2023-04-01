@@ -37,10 +37,10 @@ def update_coupon(coupon: model.Coupon, db: Session):
     db.commit()
     return result
 
-def update_coupon_status(coupon: model.Coupon, db: Session):
+def update_coupon_status(coupon: model.Coupon, status: int, db: Session):
     result = db.query(schema.Coupon).filter(schema.Coupon.id == coupon.id).update(
         {
-           "done":1
+           "done": status
         }
     )
     db.commit()

@@ -21,6 +21,12 @@ class Token(Base):
     qr_code= Column(String)
     token= Column(String)
 
+class Monster(Base):
+    __tablename__ = 'monsters'
+
+    id = Column(Integer, primary_key=True, index=True, autoincrement=True) 
+    name = Column(String)
+
 class Quest(Base):
     __tablename__ = 'quests'
 

@@ -58,7 +58,6 @@ async def update_quest_status(quest_id: int, db: get_db = Depends()):
     else:
         raise HTTPException(status_code=400, detail="Quest doesnt exist")
 
-
 @router.delete("/{quest_id}", response_model=model.Quest)
 async def delete_quest(quest_id: int, db: get_db = Depends()):
     result = quest_crud.delete_quest(quest_id, db)
