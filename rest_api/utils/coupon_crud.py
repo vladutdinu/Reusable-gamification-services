@@ -4,9 +4,9 @@ from models import model
 
 def create_coupon(coupon: model.Coupon, db: Session):
     new_coupon = schema.Coupon(
+        customer_id = coupon.customer_id,
         description = coupon.description,
         discount = coupon.discount,
-        customer_id = coupon.customer_id,
         code = coupon.code,
         start_date = coupon.start_date,
         end_date = coupon.end_date
