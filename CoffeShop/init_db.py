@@ -23,7 +23,7 @@ for type in types:
     type_crud.create_type(
         model.Type(
             typeOf=type['typeOf']
-        )
+        ), SessionLocal()
     )
 
 products=[
@@ -90,21 +90,19 @@ for product in products:
             description=product['description'],
             price=product['price'],
             type=product['type']
-        )
+        ), SessionLocal()
     )
 
 users=[
     {
         "name": "u1",
         "email": "user1@gmail.com",
-        "password": "pass1",
-        "password2": "pass1"
+        "password": "pass1"
     },
     {
         "name": "u2",
         "email": "user2@gmail.com",
-        "password": "pass2",
-        "password2": "pass2"
+        "password": "pass2"
     }
 ]
 
@@ -114,6 +112,6 @@ for user in users:
             name=user['name'],
             email=user['email'],
             password=user['password'],
-            password2=user['password2']
-        )
+            ranking=0
+        ), SessionLocal()
     )
