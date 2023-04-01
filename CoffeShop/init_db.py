@@ -109,7 +109,6 @@ for user in users:
         model.User(
             name=user['name'],
             email=user['email'],
-            password=user['password'],
-            ranking=0
+            password=user['password']
         ), SessionLocal()
     )
