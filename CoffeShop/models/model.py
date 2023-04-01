@@ -24,4 +24,14 @@ class User(BaseModel):
     email:str
     password:str
     ranking:int
+class UserSignUp(BaseModel):
+  
+    name:str
+    email:str
+    password:str
+    password2:str
+class UserLogIn(BaseModel):
+    password:str
+    email:str  
+
 

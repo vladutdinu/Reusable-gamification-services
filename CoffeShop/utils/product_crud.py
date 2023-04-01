@@ -5,7 +5,7 @@ from models import model
 
 def create_product(product: model.Product, db: Session):
     new_tier = schema.Product(
-       id=product.id,
+       
        name=product.name,
        description=product.description,
        price=product.price,

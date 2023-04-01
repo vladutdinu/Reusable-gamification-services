@@ -17,21 +17,21 @@ async def create_item(product: model.Product, db: get_db = Depends()):
     if result:
         raise HTTPException(status_code=400, detail="Product already exists")
     return product_crud.create_customer(product, db)
-@router.get("/{product_id}", response_model=model.Customer)
+@router.get("/{product_id}", response_model=model.Product)
 async def get_product_by_id(product_id: int, db: get_db = Depends()):
     result = product_crud.get_product_by_id(product_id, db)
     if result:
         return result
     else:
         raise HTTPException(status_code=400, detail="Product doesnt exist")
-@router.get("/{product_name}", response_model=model.Customer)
+@router.get("/{product_name}", response_model=model.Product)
 async def get_product_by_name(product_name: str, db: get_db = Depends()):
     result = product_crud.get_product_by_name(product_name, db)
     if result:
         return result
     else:
         raise HTTPException(status_code=400, detail="Product doesnt exist")
-@router.put("/", response_model=model.Customer)
+@router.put("/", response_model=model.Product)
 async def update_product(product: model.Product, db: get_db = Depends()):
     result = product_crud.update_product(product, db)
     if result:
@@ -39,8 +39,8 @@ async def update_product(product: model.Product, db: get_db = Depends()):
     else:
         raise HTTPException(status_code=400, detail="Product doesnt exist")
 
-@router.delete("/{product_id}", response_model=model.Customer)
-async def delete_customer(product_id: int, db: get_db = Depends()):
+@router.delete("/{product_id}", response_model=model.Product)
+async def delete_product(product_id: int, db: get_db = Depends()):
     result = product_crud.delete_product(product_id, db)
     if result:
         return Response("Product deleted")

@@ -4,7 +4,7 @@ from schemas import schema
 from models import model
 def create_type(type: model.Type, db: Session):
     new_tier = schema.Type(
-       id=type.id,
+      
        typeOf=type.typeOf
 
     )

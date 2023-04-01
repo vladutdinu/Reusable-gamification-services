@@ -13,10 +13,10 @@ def get_db():
 router = APIRouter(prefix="/type", tags=["Type Endpoints"])
 @router.post("/")
 async def create_item(type: model.Type, db: get_db = Depends()):
-    result = type_crud.get_product(type.id, db)
+    result = type_crud.get_type(type.id, db)
     if result:
         raise HTTPException(status_code=400, detail="Type already exists")
-    return type_crud.create_customer(type, db)
+    return type_crud.create_type(type, db)
 @router.get("/{type_name}", response_model=model.Type)
 async def get_type_by_name(type_name: str, db: get_db = Depends()):
     result = type_crud.get_type_by_name(type_name, db)
@@ -26,15 +26,15 @@ async def get_type_by_name(type_name: str, db: get_db = Depends()):
         raise HTTPException(status_code=400, detail="Type doesnt exist")
 @router.put("/", response_model=model.Type)
 async def update_product(type: model.Type, db: get_db = Depends()):
-    result = type_crud.update_product(type, db)
+    result = type_crud.update_type(type, db)
     if result:
-        return type_crud.get_product_by_id(type.id, db)
+        return type_crud.get_type_by_name(type.typeOf, db)
     else:
         raise HTTPException(status_code=400, detail="Product doesnt exist")
 
-@router.delete("/{product_id}", response_model=model.Customer)
+@router.delete("/{type_id}", response_model=model.Customer)
 async def delete_customer(type_id: int, db: get_db = Depends()):
-    result = type_crud.delete_product(type_id, db)
+    result = type_crud.delete_type(type_id, db)
     if result:
         return Response("type deleted")
     else:
