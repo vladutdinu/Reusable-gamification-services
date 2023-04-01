@@ -11,7 +11,7 @@ class Product(Base):
     name=Column(String)
     description=Column(String)
     price=Column(Integer)
-    type=Column(Integer, ForeignKey("Type.id"))
+    type=Column(Integer, ForeignKey("types.id"))
 class User(Base):
     __tablename__ = "users"
     id=Column(Integer, primary_key=True, index=True, autoincrement=True)
