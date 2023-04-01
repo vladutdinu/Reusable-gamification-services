@@ -81,12 +81,12 @@ def get_battlepass(battlepass_id: int, db: Session):
         schema.Battlepass.id == battlepass_id).first()
     return battlepass
 
-def get_battlepass_by_date(current_date: date, db: Session):
-    battlepass = db.query(schema.Battlepass).filter(current_date <= schema.Battlepass.end_date).filter(current_date >= schema.Battlepass.start_date).first()
+def get_battlepass_by_date(current_date: date, customer_id: int,db: Session):
+    battlepass = db.query(schema.Battlepass).filter(current_date <= schema.Battlepass.end_date).filter(current_date >= schema.Battlepass.start_date).filter(current_date >= schema.SpinningWheel.start_date).filter(customer_id == schema.Battlepass.customer_id).first()
     return battlepass
 
-def get_battlepass_with_targes(current_date: date, db: Session):
-    _battlepass = get_battlepass_by_date(current_date, db)
+def get_battlepass_with_targes(current_date: date, customer_id: int, db: Session):
+    _battlepass = get_battlepass_by_date(current_date, customer_id, db)
     _targets = get_targets(_battlepass.__dict__["id"], db)
     battlepass = model.BattlepassTarget(
         targets = [model.Target(**target.__dict__) for target in _targets],

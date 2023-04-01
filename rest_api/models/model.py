@@ -67,6 +67,10 @@ class Battlepass(BaseModel):
     start_date: date
     end_date: date
 
+class BattlepassRequester(BaseModel): 
+    customer_id: int
+    current_date: date
+
 class BattlepassTarget(BaseModel):
     targets: List[Target]
     start_date: date
