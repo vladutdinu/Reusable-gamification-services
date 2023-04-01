@@ -1,6 +1,6 @@
 import json
 from sqlalchemy.orm import Session
-from Schemas import schema
+from schemas import schema
 from models import model
 
 def create_product(product: model.Product, db: Session):
