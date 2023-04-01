@@ -1,3 +1,4 @@
+from typing import List
 from fastapi import APIRouter, Depends, HTTPException, Response
 from utils import quest_crud
 from models import model
@@ -33,12 +34,27 @@ async def get_quest(quest_id: int, db: get_db = Depends()):
     else:
         raise HTTPException(status_code=400, detail="Quest doesnt exist")
 
+@router.get("/all/{customer_id}", response_model=List[model.Quest])
+async def get_quests_customer(customer_id: int, db: get_db = Depends()):
+    result = quest_crud.get_quests_customer(customer_id, db)
+    if result:
+        return [quest.__dict__ for quest in result]
+    else:
+        raise HTTPException(status_code=400, detail="No quests")
 
 @router.put("/", response_model=model.Quest)
 async def update_quest(quest: model.Quest, db: get_db = Depends()):
     result = quest_crud.update_quest(quest, db)
     if result:
         return quest_crud.get_quest(quest.id, db).__dict__
+    else:
+        raise HTTPException(status_code=400, detail="Quest doesnt exist")
+
+@router.put("/", response_model=model.Quest)
+async def update_quest_status(quest_id: int, db: get_db = Depends()):
+    result = quest_crud.update_quest_status(quest_id, db)
+    if result:
+        return quest_crud.get_quest(quest_id, db).__dict__
     else:
         raise HTTPException(status_code=400, detail="Quest doesnt exist")
 

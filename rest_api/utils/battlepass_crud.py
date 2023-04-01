@@ -34,6 +34,15 @@ def update_target(target: model.Target, db: Session):
     db.commit()
     return result
 
+def update_target_status(target: model.Target, db: Session):
+    result = db.query(schema.Target).filter(schema.Target.id == target.id).update(
+        {
+            "done":1
+        }
+    )
+    db.commit()
+    return result
+
 def delete_target(target_id: int, db: Session):
     result = db.query(schema.Target).filter(
         schema.Target.id == target_id).delete()

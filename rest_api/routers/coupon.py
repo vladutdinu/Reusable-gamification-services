@@ -1,3 +1,4 @@
+from typing import List
 from fastapi import APIRouter, Depends, HTTPException, Response
 from utils import coupon_crud
 from models import model
@@ -27,12 +28,28 @@ async def get_coupon(coupon_id: int, db: get_db = Depends()):
         return result.__dict__
     else:
         raise HTTPException(status_code=400, detail="Coupon doesnt exist")
+    
+@router.get("/all/{customer_id}", response_model=List[model.Coupon])
+async def get_coupons_customer(customer_id: int, db: get_db = Depends()):
+    result = coupon_crud.get_coupons_customer(customer_id, db)
+    if result:
+        return [coupon.__dict__ for coupon in result]
+    else:
+        raise HTTPException(status_code=400, detail="No coupons")
 
 @router.put("/", response_model=model.Coupon)
 async def update_coupon(coupon: model.Coupon, db: get_db = Depends()):
     result = coupon_crud.update_coupon(coupon, db)
     if result:
         return coupon_crud.get_coupon(coupon.id, db).__dict__
+    else:
+        raise HTTPException(status_code=400, detail="Coupon doesnt exist")
+
+@router.put("/", response_model=model.Coupon)
+async def update_coupon_status(coupon_id: int, db: get_db = Depends()):
+    result = coupon_crud.update_coupon_status(coupon_id, db)
+    if result:
+        return coupon_crud.get_coupon(coupon_id, db).__dict__
     else:
         raise HTTPException(status_code=400, detail="Coupon doesnt exist")
 

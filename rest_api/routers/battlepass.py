@@ -79,6 +79,13 @@ async def update_target(target: model.Target, db: get_db = Depends()):
     else:
         raise HTTPException(status_code=400, detail="Target doesnt exist")
 
+@router.put("/target/{target_id}", response_model=model.Target)
+async def update_target_status(target_id: int, db: get_db = Depends()):
+    result = battlepass_crud.update_target_status(target_id, db)
+    if result:
+        return battlepass_crud.get_target_by_id(target_id, db).__dict__
+    else:
+        raise HTTPException(status_code=400, detail="Target doesnt exist")
 
 @router.delete("/target/{target_id}", response_model=model.Target)
 async def delete_target(target_id: int, db: get_db = Depends()):
