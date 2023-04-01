@@ -17,6 +17,21 @@ class Product(BaseModel):
     name:str
     description:str
     price:int
-    type:Type
-   
+    type:int
+class User(BaseModel):
+    id:Optional[int]
+    name:str
+    email:str
+    password:str
+    ranking:int
+class UserSignUp(BaseModel):
+  
+    name:str
+    email:str
+    password:str
+    password2:str
+class UserLogIn(BaseModel):
+    password:str
+    email:str  
+
 
