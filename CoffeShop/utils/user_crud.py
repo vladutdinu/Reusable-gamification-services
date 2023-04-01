@@ -44,3 +44,10 @@ def delete_user(user_id: int, db: Session):
     result = db.query(schema.User).filter(schema.User.id == user_id).delete()
     db.commit()
     return result
+def change_password(new_password: str,user_id:int ,db: Session):
+    user = db.query(schema.User).filter(schema.User.id == user_id).first()
+    user.password=new_password
+    update_user(user,db)
+    return {
+        "message":"Password changed"
+    }

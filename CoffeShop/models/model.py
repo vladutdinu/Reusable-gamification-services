@@ -33,5 +33,9 @@ class UserSignUp(BaseModel):
 class UserLogIn(BaseModel):
     password:str
     email:str  
+class UserChangePassword(BaseModel):
+    id:int
+    password1:str
+    password2:str
 
 
