@@ -21,14 +21,14 @@ async def create_item(type: model.Type, db: get_db = Depends()):
 async def get_type_by_name(type_name: str, db: get_db = Depends()):
     result = type_crud.get_type_by_name(type_name, db)
     if result:
-        return result
+        return result.__dict__
     else:
         raise HTTPException(status_code=400, detail="Type doesnt exist")
 @router.put("/", response_model=model.Type)
 async def update_product(type: model.Type, db: get_db = Depends()):
     result = type_crud.update_type(type, db)
     if result:
-        return type_crud.get_type_by_name(type.typeOf, db)
+        return type_crud.get_type_by_name(type.typeOf, db).__dict__
     else:
         raise HTTPException(status_code=400, detail="Product doesnt exist")
 

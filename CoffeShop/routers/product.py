@@ -24,18 +24,18 @@ async def get_product_by_id(product_id: int, db: get_db = Depends()):
         return result.__dict__
     else:
         raise HTTPException(status_code=400, detail="Product doesnt exist")
-@router.get("/{product_name}", response_model=model.Product)
+@router.get("/name/{product_name}", response_model=model.Product)
 async def get_product_by_name(product_name: str, db: get_db = Depends()):
     result = product_crud.get_product_by_name(product_name, db)
     if result:
-        return result
+        return result.__dict__
     else:
         raise HTTPException(status_code=400, detail="Product doesnt exist")
 @router.put("/", response_model=model.Product)
 async def update_product(product: model.Product, db: get_db = Depends()):
     result = product_crud.update_product(product, db)
     if result:
-        return product_crud.get_product_by_id(product.id, db)
+        return product_crud.get_product_by_id(product.id, db).__dict__
     else:
         raise HTTPException(status_code=400, detail="Product doesnt exist")
 
