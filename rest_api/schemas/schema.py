@@ -25,8 +25,9 @@ class Quest(Base):
     __tablename__ = 'quests'
 
     id = Column(Integer, primary_key=True, index=True, autoincrement=True) 
+    customer_id= Column(Integer, ForeignKey("customers.id"))
     quest= Column(String)
-    quantity= Column(Integer)
+    target_quantity= Column(Integer)
     product_id= Column(Integer)
     points= Column(Integer)
     start_date= Column(DateTime)
@@ -36,6 +37,7 @@ class Coupon(Base):
     __tablename__ = 'coupons'
 
     id = Column(Integer, primary_key=True, index=True, autoincrement=True)
+    customer_id= Column(Integer, ForeignKey("customers.id"))
     description= Column(String)
     discount= Column(Integer)
     code= Column(String)
@@ -54,6 +56,7 @@ class Battlepass(Base):
     __tablename__ = 'battlepasses'
 
     id = Column(Integer, primary_key=True, index=True, autoincrement=True) 
+    customer_id= Column(Integer, ForeignKey("customers.id"))
     start_date= Column(DateTime)
     end_date= Column(DateTime)
 

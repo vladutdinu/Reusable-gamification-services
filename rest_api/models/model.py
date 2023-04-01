@@ -26,7 +26,9 @@ class Token(BaseModel):
 
 class Quest(BaseModel):
     id: Optional[int] 
+    customer_id: int 
     quest: str
+    target_quantity: int
     quantity: int
     product_id: int
     points: int
@@ -35,6 +37,7 @@ class Quest(BaseModel):
 
 class Coupon(BaseModel):
     id: Optional[int]
+    customer_id: int
     description: str
     discount: int
     code: str
@@ -49,6 +52,7 @@ class Target(BaseModel):
 
 class Battlepass(BaseModel):
     id: Optional[int] 
+    customer_id: int
     start_date: date
     end_date: date
 
