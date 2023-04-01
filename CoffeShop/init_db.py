@@ -18,8 +18,6 @@ types = [
 ]
 
 for type in types:
-    print(type)
-    print(type['typeOf'])
     type_crud.create_type(
         model.Type(
             typeOf=type['typeOf']
