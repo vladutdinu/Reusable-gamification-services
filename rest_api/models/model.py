@@ -29,6 +29,7 @@ class Quest(BaseModel):
     customer_id: int 
     quest: str
     target_quantity: int
+    type: str
     quantity: int
     product_id: int
     points: int

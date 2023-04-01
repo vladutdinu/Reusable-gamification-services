@@ -27,6 +27,7 @@ class Quest(Base):
     id = Column(Integer, primary_key=True, index=True, autoincrement=True) 
     customer_id= Column(Integer, ForeignKey("customers.id"))
     quest= Column(String)
+    type= Column(String)
     target_quantity= Column(Integer)
     product_id= Column(Integer)
     points= Column(Integer)
