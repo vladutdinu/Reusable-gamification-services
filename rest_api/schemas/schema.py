@@ -71,13 +71,6 @@ class Battlepass(Base):
     start_date= Column(DateTime)
     end_date= Column(DateTime)
 
-class LeaderboardUsers(Base):
-    __tablename__ = 'leaderboard_users'
-    
-    id = Column(Integer, primary_key=True, index=True, autoincrement=True) 
-    leaderboard_id = Column(Integer, ForeignKey("leaderboards.id"))
-    customer_id = Column(Integer)
-
 class Leaderboard(Base):
     __tablename__ = 'leaderboards'
 

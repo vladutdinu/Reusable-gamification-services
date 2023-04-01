@@ -14,8 +14,8 @@ def create_leaderboard(leaderboard: model.Leaderboard, db: Session):
     db.refresh(new_leaderboard)
     return new_leaderboard
 
-def get_leaderboard_result(leaderboard_id: int, current_date: date,  db: Session):
-    leaderboard = db.query(schema.Leaderboard).filter(schema.Leaderboard.id == leaderboard_id).filter(schema.Leaderboard.end_date <= current_date).first()
+def get_leaderboard_result(current_date: date,  db: Session):
+    leaderboard = db.query(schema.Leaderboard).filter(schema.Leaderboard.start_date >= current_date).filter(schema.Leaderboard.end_date <= current_date).first()
     customers = db.query(schema.Customer).all()
     result = model.LeaderboardResult(
         leaderboard_result = [model.LeaderboardObject(
@@ -28,8 +28,8 @@ def get_leaderboard_result(leaderboard_id: int, current_date: date,  db: Session
     )
     return result
 
-def get_leaderboards_customer(customer_id: int, db: Session):
-    leaderboard = db.query(schema.Leaderboard).filter(schema.Leaderboard.customer_id == customer_id).all()
+def get_leaderboard(leaderboard_id: int, db: Session):
+    leaderboard = db.query(schema.Leaderboard).filter(schema.Leaderboard.leaderboard_id == leaderboard_id).first()
     return leaderboard
     
 def update_leaderboard(leaderboard: model.Leaderboard, db: Session):
