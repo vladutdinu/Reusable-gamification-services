@@ -1,6 +1,7 @@
 from sqlalchemy.orm import Session
 from schemas import schema
 from models import model
+from datetime import date
 
 def create_target(target: model.Target, db: Session):
     new_target = schema.Target(
@@ -57,6 +58,7 @@ def delete_target_by_battleplass_id(battlepass_id: int, db: Session):
 
 def create_battlepass(battlepass: model.Battlepass, db: Session):
     new_targets = schema.Battlepass(
+        customer_id=battlepass.customer_id,
         start_date=battlepass.start_date,
         end_date=battlepass.end_date
     )
@@ -75,13 +77,17 @@ def create_battlepass(battlepass: model.Battlepass, db: Session):
 #         return 0
 
 def get_battlepass(battlepass_id: int, db: Session):
-    token = db.query(schema.Battlepass).filter(
+    battlepass = db.query(schema.Battlepass).filter(
         schema.Battlepass.id == battlepass_id).first()
-    return token
+    return battlepass
 
-def get_battlepass_with_targes(battlepass_id: int, db: Session):
-    _battlepass = get_battlepass(battlepass_id, db)
-    _targets = get_targets(battlepass_id, db)
+def get_battlepass_by_date(current_date: date, db: Session):
+    battlepass = db.query(schema.Battlepass).filter(current_date <= schema.Battlepass.end_date).filter(current_date >= schema.Battlepass.start_date).first()
+    return battlepass
+
+def get_battlepass_with_targes(current_date: date, db: Session):
+    _battlepass = get_battlepass_by_date(current_date, db)
+    _targets = get_targets(_battlepass.__dict__["id"], db)
     battlepass = model.BattlepassTarget(
         targets = [model.Target(**target.__dict__) for target in _targets],
         start_date = _battlepass.start_date,
