@@ -19,7 +19,7 @@ def create_product(product: model.Product, db: Session):
 def get_product(product_id: int, db: Session):
     product = db.query(schema.Product).filter(schema.Product.id == product_id).first()
     return product
-def update_tier(product: model.Product, db: Session):
+def update_product(product: model.Product, db: Session):
     result = db.query(schema.Product).filter(schema.Product.id == product.id).update(
         {
             "name":product.name,
@@ -30,7 +30,7 @@ def update_tier(product: model.Product, db: Session):
     )
     db.commit()
     return result
-def delete_tier(product_id: int, db: Session):
+def delete_product(product_id: int, db: Session):
     result = db.query(schema.Product).filter(schema.Product.id == product_id).delete()
     db.commit()
     return result
