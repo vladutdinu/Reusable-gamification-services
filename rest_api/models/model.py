@@ -72,6 +72,17 @@ class BattlepassTarget(BaseModel):
     start_date: date
     end_date: date
 
+class LeaderboardObject(BaseModel):
+    index: str
+    name: str
+    points: int
+
+class LeaderboardResult(BaseModel):
+    leaderboard_result: List[LeaderboardObject]
+    start_date: date
+    end_date: date
+
 class Leaderboard(BaseModel):
-    id: Optional[int] 
-    customers: List[int]
+    id: Optional[int]
+    start_date: date
+    end_date: date
