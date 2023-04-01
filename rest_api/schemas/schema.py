@@ -1,6 +1,19 @@
 from sqlalchemy import Boolean, Column, ForeignKey, Integer, String, DateTime
 from database import Base
 
+class CustomerPoints(Base):
+    __tablename__ = 'customers_points'
+
+    id = Column(Integer, primary_key=True, index=True, autoincrement=True) 
+    points= Column(Integer)
+
+class Customer(Base):
+    __tablename__ = 'customers'
+
+    id = Column(Integer, primary_key=True, index=True, autoincrement=True) 
+    customer_id= Column(Integer)
+    points_id = Column(Integer, ForeignKey("customers_points.id"))
+
 class Token(Base):
     __tablename__ = 'tokens'
 
@@ -43,8 +56,6 @@ class Battlepass(Base):
     id = Column(Integer, primary_key=True, index=True, autoincrement=True) 
     start_date= Column(DateTime)
     end_date= Column(DateTime)
-
-    
 
 class LeaderboardUsers(Base):
     __tablename__ = 'leaderboard_users'

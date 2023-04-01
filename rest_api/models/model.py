@@ -2,6 +2,23 @@ from datetime import date
 from typing import Optional, List
 from pydantic import BaseModel
 
+class CustomerPoints(BaseModel):
+    id: Optional[int]
+    points: int
+
+class Customer(BaseModel):
+    id: Optional[int]
+    customer_id: int
+    points_id: Optional[int]
+
+class CustomerWithPoints(BaseModel):
+    id: Optional[int]
+    customer_id: int
+    points: Optional[CustomerPoints]
+
+    class Config:
+        orm_mode = True
+
 class Token(BaseModel):
     id: Optional[int] 
     qr_code: str

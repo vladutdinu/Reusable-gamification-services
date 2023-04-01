@@ -40,6 +40,12 @@ def delete_target(target_id: int, db: Session):
     db.commit()
     return result
 
+def delete_target_by_battleplass_id(battlepass_id: int, db: Session):
+    result = db.query(schema.Target).filter(
+        schema.Target.battlepass_id == battlepass_id).delete()
+    db.commit()
+    return result
+
 def create_battlepass(battlepass: model.Battlepass, db: Session):
     new_targets = schema.Battlepass(
         start_date=battlepass.start_date,
@@ -85,7 +91,11 @@ def update_battlepass(battlepass: model.Battlepass, db: Session):
     return result
 
 def delete_battlepass(battlepass_id: int, db: Session):
-    result = db.query(schema.Battlepass).filter(
+    battlepass = db.query(schema.Battlepass).filter(
         schema.Battlepass.id == battlepass_id).delete()
+    targets = delete_target_by_battleplass_id(battlepass_id, db)
     db.commit()
-    return result
+    if battlepass and targets:
+        return 1
+    else:
+        return 0
