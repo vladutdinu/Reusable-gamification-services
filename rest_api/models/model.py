@@ -67,6 +67,10 @@ class Battlepass(BaseModel):
     start_date: date
     end_date: date
 
+class BattlepassRequester(BaseModel): 
+    customer_id: int
+    current_date: date
+
 class BattlepassTarget(BaseModel):
     targets: List[Target]
     start_date: date
@@ -84,5 +88,15 @@ class LeaderboardResult(BaseModel):
 
 class Leaderboard(BaseModel):
     id: Optional[int]
+    start_date: date
+    end_date: date
+
+class SpinningWheel(BaseModel):
+    id: Optional[int] 
+    start_date: date
+    end_date: date
+
+class SpinningWheelRewards(BaseModel):
+    slice: List[str]
     start_date: date
     end_date: date

@@ -77,3 +77,10 @@ class Leaderboard(Base):
     id = Column(Integer, primary_key=True, index=True, autoincrement=True) 
     start_date= Column(DateTime)
     end_date= Column(DateTime)
+
+class SpinningWheel(Base):
+    __tablename__ = 'spinningwheels'
+
+    id = Column(Integer, primary_key=True, index=True, autoincrement=True) 
+    start_date= Column(DateTime)
+    end_date= Column(DateTime)
