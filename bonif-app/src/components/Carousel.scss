@@ -1,5 +1,28 @@
-   .quests-container {
+
+.carousel {
+
+.quests-container {
        display: flex;
        gap: 2rem;
        color: white;
    }
+
+   .dots-container  {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    margin-top: 1rem;
+
+    div {
+        width: .6rem;
+        height: .6rem;
+        background-color: #ddd;
+        border-radius: 100%;
+    }
+    div.active {
+        width: .9rem;
+        height: .9rem;
+        background-color: #aaa;
+    }
+   }
+}
