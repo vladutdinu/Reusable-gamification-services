@@ -5,6 +5,7 @@ from pydantic import BaseModel
 class CustomerPoints(BaseModel):
     id: Optional[int]
     points: int
+    current_points: int
 
 class Customer(BaseModel):
     id: Optional[int]
@@ -91,12 +92,18 @@ class Leaderboard(BaseModel):
     start_date: date
     end_date: date
 
-class SpinningWheel(BaseModel):
+class SpinningWheelReward(BaseModel):
     id: Optional[int] 
+    name: Optional[str]
+    product_id: int
+    spinning_wheel_id: int
+
+class SpinningWheelRewards(BaseModel):
+    slice: List[SpinningWheelReward]
     start_date: date
     end_date: date
 
-class SpinningWheelRewards(BaseModel):
-    slice: List[str]
+class SpinningWheel(BaseModel):
+    id: Optional[int] 
     start_date: date
     end_date: date
