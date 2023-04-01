@@ -86,3 +86,13 @@ class Leaderboard(BaseModel):
     id: Optional[int]
     start_date: date
     end_date: date
+
+class SpinningWheel(BaseModel):
+    id: Optional[int] 
+    start_date: date
+    end_date: date
+
+class SpinningWheelRewards(BaseModel):
+    slice: List[str]
+    start_date: date
+    end_date: date

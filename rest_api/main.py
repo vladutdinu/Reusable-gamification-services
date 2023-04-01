@@ -1,5 +1,5 @@
 from fastapi import Depends, FastAPI
-from routers import token, coupon, quest, battlepass, customer, monster, leaderboard
+from routers import token, coupon, quest, battlepass, customer, monster, leaderboard, spinningwheel
 import models, schemas
 from database import SessionLocal, engine
 from fastapi.middleware.cors import CORSMiddleware
@@ -21,3 +21,4 @@ app.include_router(battlepass.router)
 app.include_router(customer.router)
 app.include_router(monster.router)
 app.include_router(leaderboard.router)
+app.include_router(spinningwheel.router)
