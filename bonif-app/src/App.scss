@@ -1,0 +1,14 @@
+.App {
+    padding-top: 15vh;
+    overflow-x: hidden;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+
+    .quests-container {
+        display: flex;
+        gap: 2rem;
+        color: white;
+    }
+
+}

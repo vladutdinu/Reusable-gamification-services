@@ -1,0 +1,22 @@
+.card-section {
+    display: flex;
+    flex-direction: column;
+    gap: .8rem;
+    padding: 1rem 0rem;
+    .points-card {
+        display: flex;
+        flex-direction: column;
+        .top-half {
+                background: linear-gradient(90deg, #F9A081 40%, #FF715B);
+                padding: 4rem;
+               border-top-left-radius: 15px;
+                border-top-right-radius: 15px;
+            }
+        .bottom-half {
+            background-color: black;
+            padding: 2.3rem;
+            border-bottom-left-radius: 15px;
+            border-bottom-right-radius: 15px;
+        }
+    }
+}

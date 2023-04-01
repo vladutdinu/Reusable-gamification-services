@@ -1,0 +1,29 @@
+header {
+    display: flex;
+    justify-content: space-between;
+    padding: .5rem;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background: #FAFAFA;
+
+
+    .coffe-logo {
+        width: 40px;
+        height: 40px;
+    }
+
+    .title {
+        font-size: 24px;
+        font-weight: 500;
+        margin-top: .6rem;
+            
+    }   
+
+    .hamburger {
+    filter: invert(70%) sepia(38%) saturate(5220%) hue-rotate(320deg) brightness(98%) contrast(111%);
+    width: 36px;
+    height: 36px;
+}
+}
