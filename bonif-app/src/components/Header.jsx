@@ -7,7 +7,7 @@ const Header = () => {
   const [openMenu, setOpenMenu] = useState(false);
 
   return (
-    <header>
+    <header className="header">
       <img src={coffeeUrl} alt="Coffee logo" className="coffe-logo" />
       <div className="title">Crazy Coffee</div>
       <img src={menuUrl} alt="Menu" className="hamburger" onClick={() => setOpenMenu(!openMenu)} />
