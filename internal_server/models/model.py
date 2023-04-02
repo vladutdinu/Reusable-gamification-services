@@ -31,3 +31,7 @@ class Customer(BaseModel):
 
     class Config:
         orm_mode = True
+
+class Validate(BaseModel):
+    token: str
+    customer_id: int

@@ -6,7 +6,7 @@ import os
 import base64
 schema.Base.metadata.create_all(bind=engine)
 
-TOKEN = "token" #os.environ["TOKEN"]
+TOKEN = "gAAAAABkKNgCo1djL1fxDlvuP-231BHbIXW6r5NWY-XfnwgF9LOZVCr6S6BiGcr-7tAkzVlhidlDSSwS9XGtGWnVV2kE3k6lb1o7DvlzcqejlunJjHIXR9Xv1HgaP2pswOT_7iAoIlMOZStHR1mEoarrxOoGguKBGQ==" #os.environ["TOKEN"]
 
 tokens = [
     {
@@ -47,6 +47,7 @@ coupons = [
         "customer_id": 1,
         "description": "Get discount on your next coffe",
         "discount": 10,
+        "points_required": 100,
         "code": "CODE1",
         "start_date": "2023-04-01",
         "end_date": "2023-04-05",
@@ -55,6 +56,7 @@ coupons = [
         "customer_id": 1,
         "description": "Get discount on your next sandwich",
         "discount": 10,
+        "points_required": 300,
         "code": "CODE2",
         "start_date": "2023-04-01",
         "end_date": "2023-04-05",
@@ -63,6 +65,7 @@ coupons = [
         "customer_id": 2,
         "description": "Get discount on your next drink",
         "discount": 10,
+        "points_required": 200,
         "code": "CODE3",
         "start_date": "2023-04-01",
         "end_date": "2023-04-05",
@@ -71,6 +74,7 @@ coupons = [
         "customer_id": 2,
         "description": "Get discount on your next sandwich",
         "discount": 10,
+        "points_required": 400,
         "code": "CODE4",
         "start_date": "2023-04-01",
         "end_date": "2023-04-05",
@@ -83,6 +87,7 @@ for coupon in coupons:
             customer_id = coupon['customer_id'],
             description = coupon['description'],
             discount = coupon['discount'],
+            points_required = coupon['points_required'],
             code = coupon['code'],
             start_date = coupon['start_date'],
             end_date = coupon['end_date'],
