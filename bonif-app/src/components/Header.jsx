@@ -11,7 +11,7 @@ const Header = () => {
   }
   return (
     <>
-      <header className="header">
+      <header>
         <img src={coffeeUrl} alt="Coffee logo" className="coffe-logo" />
         <div className="title">Crazy Coffee</div>
         <img
@@ -23,7 +23,7 @@ const Header = () => {
           }}
         />
       </header>
-      {openMenu && <HamburgerMenu onClose={handleClose} />}
+      {openMenu && <HamburgerMenu setOpenMenu={setOpenMenu} />}
     </>
   );
 };
