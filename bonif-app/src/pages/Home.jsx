@@ -3,6 +3,7 @@ import Carousel from '../components/Carousel';
 import CardSection from '../components/CardSection';
 import useAxiosGet from '../helpers/useAxiosGet';
 import coffeesUrl from '../assets/2cofee_cups.png';
+import Header from '../components/Header';
 import './Home.scss';
 
 const Home = () => {
@@ -13,6 +14,7 @@ const Home = () => {
   console.log(questData);
   return (
     <div className="Home">
+      <Header />
       <Welcome />
       {/* <PointsTracker /> */}
       <Carousel questData={questData} />

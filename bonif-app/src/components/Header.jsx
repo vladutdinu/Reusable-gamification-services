@@ -20,7 +20,7 @@ const Header = () => {
           }}
         />
       </header>
-      {openMenu && <HamburgerMenu />}
+      {openMenu && <HamburgerMenu setOpenMenu={setOpenMenu} />}
     </>
   );
 };
