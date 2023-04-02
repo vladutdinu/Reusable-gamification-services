@@ -50,11 +50,11 @@ async def update_quest(quest: model.Quest, db: get_db = Depends()):
     else:
         raise HTTPException(status_code=400, detail="Quest doesnt exist")
 
-@router.put("/", response_model=model.Quest)
-async def update_quest_status(quest_id: int, db: get_db = Depends()):
-    result = quest_crud.update_quest_status(quest_id, db)
+@router.put("/update/", response_model=model.Quest)
+async def update_quest_status(quest: model.Quest, status: int, db: get_db = Depends()):
+    result = quest_crud.update_quest_status(quest, status, db)
     if result:
-        return quest_crud.get_quest(quest_id, db).__dict__
+        return quest_crud.get_quest(quest.id, db).__dict__
     else:
         raise HTTPException(status_code=400, detail="Quest doesnt exist")
 
