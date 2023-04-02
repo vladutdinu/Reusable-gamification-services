@@ -1,8 +1,10 @@
 from fastapi import APIRouter, Depends, HTTPException, Response
-from utils import battlepass_crud
+from utils import battlepass_crud, customer_crud, coupon_crud
 from models import model
+from schemas import schema
 from database import SessionLocal
-from datetime import date
+from datetime import date, timedelta
+from random import randint
 # Dependency
 
 
@@ -13,9 +15,7 @@ def get_db():
     finally:
         db.close()
 
-
 router = APIRouter(prefix="/battlepass", tags=["Battlepass Endpoints"])
-
 
 @router.post("/", response_model=model.Battlepass)
 async def create_battlepass(battlepass: model.Battlepass, db: get_db = Depends()):
@@ -35,8 +35,24 @@ async def get_battlepass(battlepass_id: int, db: get_db = Depends()):
 
 @router.post("/all/", response_model=model.BattlepassTarget)
 async def get_battlepass_with_targets(battlepass_requester: model.BattlepassRequester, db: get_db = Depends()):
+    customer = customer_crud.get_customer_with_points_by_id(battlepass_requester.customer_id, db)
     battlepass = battlepass_crud.get_battlepass_with_targes(battlepass_requester.current_date, battlepass_requester.customer_id, db)
-    return battlepass.__dict__
+
+    for target in battlepass.targets:
+        if customer.points.current_points >= target.target_points and target.done == 0:
+            coupon_crud.create_coupon(model.Coupon(
+                customer_id = customer.customer_id,
+                description = "Random description " + str(target.target_points),
+                discount = int(randint(0,100)),
+                points_required = int(randint(0,1000)),
+                product_id = 1,
+                code = "C"+str(target.target_points),
+                start_date = battlepass_requester.current_date,
+                end_date = battlepass_requester.current_date + timedelta(days=10)
+            ), db)
+            battlepass_crud.update_target_status(target, 1, db)
+
+    return battlepass_crud.get_battlepass_with_targes(battlepass_requester.current_date, battlepass_requester.customer_id, db).__dict__
 
 @router.put("/", response_model=model.Battlepass)
 async def update_battlepass(battlepass: model.Battlepass, db: get_db = Depends()):

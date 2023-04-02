@@ -5,6 +5,7 @@ from pydantic import BaseModel
 class CustomerPoints(BaseModel):
     id: Optional[int]
     points: int
+    current_points: int
 
 class Customer(BaseModel):
     id: Optional[int]
@@ -42,24 +43,27 @@ class Quest(BaseModel):
     points: int
     start_date: date
     end_date: date
-    done: int
+    done: Optional[int] 
 
 class Coupon(BaseModel):
     id: Optional[int]
+    points_required: int
     customer_id: int
+    product_id: int
     description: str
     discount: int
     code: str
     start_date: date
     end_date: date
-    done: int
+    done: Optional[int] 
+    active: Optional[int]
 
 class Target(BaseModel):
     id: Optional[int] 
     product_id: int #specific producs for each customers preference
     target_points: int
     battlepass_id: int
-    done: int
+    done: Optional[int] 
 
 class Battlepass(BaseModel):
     id: Optional[int] 
@@ -73,6 +77,7 @@ class BattlepassRequester(BaseModel):
 
 class BattlepassTarget(BaseModel):
     targets: List[Target]
+    customer: CustomerWithPoints
     start_date: date
     end_date: date
 
@@ -91,12 +96,18 @@ class Leaderboard(BaseModel):
     start_date: date
     end_date: date
 
-class SpinningWheel(BaseModel):
+class SpinningWheelReward(BaseModel):
     id: Optional[int] 
+    name: Optional[str]
+    product_id: int
+    spinning_wheel_id: int
+
+class SpinningWheelRewards(BaseModel):
+    slice: List[SpinningWheelReward]
     start_date: date
     end_date: date
 
-class SpinningWheelRewards(BaseModel):
-    slice: List[str]
+class SpinningWheel(BaseModel):
+    id: Optional[int] 
     start_date: date
     end_date: date

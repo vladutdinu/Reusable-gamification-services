@@ -3,7 +3,7 @@ from schemas import schema
 from models import model
 
 def create_customer(customer: model.Customer, db: Session):
-    customer_points = create_customer_points(model.CustomerPoints(points = 0), db)
+    customer_points = create_customer_points(model.CustomerPoints(points = 0, current_points = 0), db)
     new_customer = schema.Customer(
         customer_id=customer.customer_id,
         points_id=customer_points.id
@@ -20,12 +20,16 @@ def get_customer_by_id(customer_id: int, db: Session):
 
 def get_customer_with_points_by_id(customer_id: int, db: Session):
     customer = db.query(schema.Customer).filter(
-        schema.Customer.id == customer_id).first()
-    customer_points = db.query(schema.CustomerPoints).filter(schema.CustomerPoints.id == customer.points_id).first()
+        schema.Customer.customer_id == customer_id).first()
+    customer_points = db.query(schema.CustomerPoints).filter(schema.CustomerPoints.id == customer.__dict__["points_id"]).first()
     return model.CustomerWithPoints(
        id = customer.id,
        customer_id = customer.customer_id,
-       points = customer_points.__dict__
+       points = model.CustomerPoints(
+        id = customer_points.__dict__['id'],
+        points = customer_points.__dict__['points'],
+        current_points = customer_points.__dict__['current_points']
+       ).__dict__
     )
 
 def get_customer(battlepass_id: int, db: Session):
@@ -55,7 +59,8 @@ def delete_customer(customer_id: int, db: Session):
 
 def create_customer_points(points: model.CustomerPoints, db: Session):
     new_customers_points = schema.CustomerPoints(
-        points=points.points
+        points=points.points,
+        current_points=points.current_points
     )
     db.add(new_customers_points)
     db.commit()
@@ -71,7 +76,8 @@ def get_customer_points(customer_points_id: int, db: Session):
 def update_customer_points(customer_points: model.CustomerPoints, db: Session):
     result = db.query(schema.CustomerPoints).filter(schema.CustomerPoints.id == customer_points.id).update(
         {
-            "points": customer_points.points
+            "points": customer_points.points,
+            "current_points": customer_points.current_points
         }
     )
     db.commit()

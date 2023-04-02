@@ -1,0 +1,49 @@
+
+
+.quest-container0 {
+    background: linear-gradient(120deg, #FF715B 0%, #F9CB40 100%);
+    box-shadow: 0px 15px 25px rgba(115, 78, 133, 0.15);
+
+}
+
+.quest-container1 {
+    background: linear-gradient(120deg, #704218 0%, #FF715B 100% );
+    box-shadow: 0px 15px 25px rgba(90, 116, 142, 0.15);
+}
+.quest-container2 {
+    background: linear-gradient(120deg, #704218 0%, #F9CB40 100%);
+    box-shadow: 0px 15px 25px rgba(92, 78, 133, 0.15);
+    
+    
+}
+
+.quest-container0,
+.quest-container1,
+.quest-container2 {
+    border-radius: 15px;
+    display: flex;
+    flex-direction: column;
+    padding: .8rem 1rem 0rem 1rem;
+    min-width: 8rem;
+    justify-content: center;
+    gap: 1rem;
+    .numbers-container {
+        margin-top: -1.2rem;
+        display: flex;
+        justify-content: space-between;
+        
+    }
+}
+
+// Focused
+
+.outlay {
+    background: rgba(178, 53, 255, 0.01);
+        backdrop-filter: blur(16.5301px);
+        position: fixed;
+        top: 5%;
+        left: 0%;
+        right: 0%;
+        bottom: 0%;
+        z-index: 2;
+}

@@ -6,6 +6,7 @@ class CustomerPoints(Base):
 
     id = Column(Integer, primary_key=True, index=True, autoincrement=True) 
     points= Column(Integer)
+    current_points = Column(Integer)
 
 class Customer(Base):
     __tablename__ = 'customers'
@@ -47,12 +48,15 @@ class Coupon(Base):
 
     id = Column(Integer, primary_key=True, index=True, autoincrement=True)
     customer_id= Column(Integer, ForeignKey("customers.id"))
+    product_id= Column(Integer)
     description= Column(String)
     discount= Column(Integer)
+    points_required= Column(Integer)
     code= Column(String)
     start_date= Column(DateTime)
     end_date= Column(DateTime)
     done= Column(Integer, default=0)
+    active= Column(Integer, default=0)
 
 class Target(Base):
     __tablename__ = 'targets'
@@ -84,3 +88,10 @@ class SpinningWheel(Base):
     id = Column(Integer, primary_key=True, index=True, autoincrement=True) 
     start_date= Column(DateTime)
     end_date= Column(DateTime)
+
+class SpinningWheelRewards(Base):
+    __tablename__ = 'spinningwheelrewards'
+
+    id = Column(Integer, primary_key=True, index=True, autoincrement=True) 
+    product_id= Column(Integer)
+    spinning_wheel_id= Column(Integer, ForeignKey("spinningwheels.id"))

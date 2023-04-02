@@ -16,7 +16,7 @@ async def SignUp(user:model.UserSignUp, db: get_db = Depends()):
     result = user_crud.get_user_by_email(user.email, db)
     if result:
         raise HTTPException(status_code=400, detail="User with this email already exists")
-    return user_crud.create_user(model.User(name=user.name,password=user.password,email=user.email,ranking=user_crud.get_last_ranking(db)+1), db)
+    return user_crud.create_user(model.User(name=user.name,password=user.password,email=user.email), db)
 @router.post("/logIn")
 async def LogIn(user:model.UserLogIn, db: get_db = Depends()):
     result = user_crud.get_user_by_email(user.email, db)
@@ -50,11 +50,18 @@ async def update_user(user: model.User, db: get_db = Depends()):
     else:
         raise HTTPException(status_code=400, detail="User doesnt exist")
 
-@router.delete("/{user_id}", response_model=model.User)
+@router.delete("/{user_id}")
 async def delete_user(user_id: int, db: get_db = Depends()):
     result = user_crud.delete_user(user_id, db)
     if result:
         return Response("User deleted")
     else:
         raise HTTPException(status_code=400, detail="User doesnt exist")
-    
+@router.put("/change_password")
+async def change_password(userChangePassword:model.UserChangePassword, db: get_db = Depends()):
+    if userChangePassword.password1==userChangePassword.password2:
+        result = user_crud.change_password(userChangePassword.password2,userChangePassword.id,db)
+        return result
+    else:
+        raise HTTPException(status_code=400, detail="Passwords do not match")
+   

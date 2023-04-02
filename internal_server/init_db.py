@@ -137,8 +137,13 @@ for customer in customers:
             "tier_picked": customer['tier_picked']
         }))
     )
+    print(encrypt_message(str({
+            "name": customer['name'],
+            "type": customer['type'],
+            "tier_picked": customer['tier_picked']
+        })))
+    print(customer['tier_picked'])
     customer_crud.create_customer(customer_model.copy(),  SessionLocal())
-   
 
 gamifications = [
     {
@@ -170,11 +175,6 @@ gamifications = [
         "name": "Pet",
         "description": "A pet gamification feature that can be used to reward the customer with items that can customize the personal pet",
         "tier": 3
-    },
-    {
-        "name": "Review",
-        "description": "A review gamification feature that can be modified to reward the customer after it reviews a product",
-        "tier": 2
     },
     {
         "name": "Coupon",
