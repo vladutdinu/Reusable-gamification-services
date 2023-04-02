@@ -1,0 +1,64 @@
+.loginRegContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  .cofee-images {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+
+    .coffe-beans {
+      background-image: url("../assets/coffeeBeans.png");
+      background-repeat: no-repeat;
+      background-size: cover;
+      background-position: center;
+      height: 700px;
+      width: 100%;
+      
+    }
+    .crazy-cofee {
+      background-image: url("../assets/coffee.png");
+      background-repeat: no-repeat;
+      background-size: cover;
+      background-position: center;
+      width: 80px;
+      height: 80px;
+      position:absolute;
+      top: 400px;
+      z-index: 100;
+      content: "";
+    }
+
+    .crazy-cofee-text{
+      position: relative;
+      top: -200px;
+    }
+
+
+  }
+
+  .buttons-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    .login-button {
+      background-color: #573512;
+      color: white;
+      border-radius: 8px;
+      padding: 1rem 9rem;
+      font-size: 1.5rem;
+      width: 100%;
+    }
+    .register-button {
+      border-radius: 8px;
+      background-color: #fff;
+      padding: 1rem 9rem;
+      font-size: 1.5rem;
+      border: 1px solid #0b0b0b;
+      width: 100%;
+    }
+  }
+}
