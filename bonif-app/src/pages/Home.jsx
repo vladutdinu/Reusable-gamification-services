@@ -12,7 +12,7 @@ const Home = () => {
   const token = useAxiosGet('http://localhost:8002/token/1');
   const userData = useAxiosGet('http://localhost:8001/user/id/1');
   const customerData = useAxiosGet('http://localhost:8002/customer/1');
-  console.log(questData);
+  
   return (
     <div className="Home">
       <Header />

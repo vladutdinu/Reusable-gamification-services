@@ -11,11 +11,11 @@ const HamburgerMenu = ({ setOpenMenu }) => {
             Home
           </Link>
         </div>
-        <div className="my-profile">
+        {/* <div className="my-profile">
           <Link to="/myprofile" onClick={closeMenu}>
             My Profile
           </Link>
-        </div>
+        </div> */}
         <div className="spinning-wheel">
           <Link to="/spinning-wheel" onClick={closeMenu}>
             Spinning Wheel

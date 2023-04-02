@@ -5,7 +5,8 @@ import { useLocalStorage } from './useLocalStorage';
 export const useAuth = () => {
   const { user, addUser, removeUser } = useUser();
   const { getItem } = useLocalStorage();
-  const [isAuthenticated, setIsAuthenthicated] = useState(false);
+  const [isAuthenticated, setIsAuthenthicated] = useState(false)
+  const [authUser, setAuthUser] = useState({})
 
   useEffect(() => {
     const user = getItem('user');
@@ -16,12 +17,13 @@ export const useAuth = () => {
 
   const login = (user) => {
     addUser(user);
-    setIsAuthenthicated(true);
+    setAuthUser(user)
+    setIsAuthenthicated(true)
   };
 
   const logout = () => {
     removeUser();
   };
 
-  return { user, login, logout, isAuthenticated };
+  return { user, login, logout, isAuthenticated, authUser, setAuthUser };
 };

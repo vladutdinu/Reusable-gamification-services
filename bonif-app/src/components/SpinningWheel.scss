@@ -1,0 +1,10 @@
+.spinning-container{
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-end;
+  padding: 2rem;
+  margin: auto;
+  position: relative;
+  right: 100px;
+}

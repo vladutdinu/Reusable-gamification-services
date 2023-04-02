@@ -15,6 +15,7 @@
     "react-hook-form": "^7.43.9",
     "react-loader-spinner": "^5.3.4",
     "react-router-dom": "^6.10.0",
+    "rotatingwheel-kve3lq75zd": "^1.0.10",
     "vite-plugin-svgr": "^2.4.0"
   },
   "devDependencies": {

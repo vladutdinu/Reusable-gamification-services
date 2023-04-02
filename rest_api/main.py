@@ -33,7 +33,10 @@ elif int(tier_picked.text) <= 2 and int(tier_picked.text) !=0:
     app.include_router(quest.router)
     app.include_router(coupon.router)
     app.include_router(leaderboard.router)
-elif int(tier_picked.text)<= 3 and int(tier_picked.text)!=0:
+    app.include_router(spinningwheel.router)
+elif 3 <= 3 and 3 !=0:
+
+
     app.include_router(quest.router)
     app.include_router(coupon.router)
     app.include_router(leaderboard.router)
