@@ -38,7 +38,6 @@ def get_spinning_wheel_rewards(wheel_id: int, db: Session):
     spinning_wheel = db.query(schema.SpinningWheelRewards).filter(wheel_id == schema.SpinningWheelRewards.spinning_wheel_id).all()
     return spinning_wheel
 
-
 def get_spinning_wheel_with_rewards(current_date: date, db: Session):
     spinning_wheel = db.query(schema.SpinningWheel).filter(current_date <= schema.SpinningWheel.end_date).filter(current_date >= schema.SpinningWheel.start_date).first()
     _rewards = get_spinning_wheel_rewards(spinning_wheel.id, db)

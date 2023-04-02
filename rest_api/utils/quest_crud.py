@@ -1,6 +1,7 @@
 from sqlalchemy.orm import Session
 from schemas import schema
 from models import model
+from utils import customer_crud
 
 def create_quest(quest: model.Quest, db: Session):
     new_quest = schema.Quest(
@@ -42,7 +43,16 @@ def update_quest(quest: model.Quest, db: Session):
         }
     )
     db.commit()
-    return result
+    _result = db.query(schema.Quest).filter(schema.Quest.id == quest.id).first()
+    if _result.__dict__["quantity"] >= _result.__dict__["target_quantity"]:
+        update_quest_status(_result, 1, db)
+        _result = db.query(schema.Quest).filter(schema.Quest.id == quest.id).first()
+        customer_points = customer_crud.get_customer_points(_result.__dict__['customer_id'], db)
+        customer_points.current_points += _result.__dict__["points"]
+        customer_points.points += _result.__dict__["points"]
+        customer_crud.update_customer_points(customer_points, db)
+
+    return _result
 
 def update_quest_status(quest: model.Quest, status: int, db: Session):
     result = db.query(schema.Quest).filter(schema.Quest.id == quest.id).update(

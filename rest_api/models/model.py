@@ -74,6 +74,7 @@ class BattlepassRequester(BaseModel):
 
 class BattlepassTarget(BaseModel):
     targets: List[Target]
+    customer: CustomerWithPoints
     start_date: date
     end_date: date
 

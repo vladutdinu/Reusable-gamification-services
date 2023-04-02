@@ -1,6 +1,7 @@
 from fastapi import APIRouter, Depends, HTTPException, Response
-from utils import battlepass_crud
+from utils import battlepass_crud, customer_crud
 from models import model
+from schemas import schema
 from database import SessionLocal
 from datetime import date
 # Dependency
@@ -35,8 +36,14 @@ async def get_battlepass(battlepass_id: int, db: get_db = Depends()):
 
 @router.post("/all/", response_model=model.BattlepassTarget)
 async def get_battlepass_with_targets(battlepass_requester: model.BattlepassRequester, db: get_db = Depends()):
+    customer = customer_crud.get_customer_with_points_by_id(battlepass_requester.customer_id, db)
     battlepass = battlepass_crud.get_battlepass_with_targes(battlepass_requester.current_date, battlepass_requester.customer_id, db)
-    return battlepass.__dict__
+
+    for target in battlepass.targets:
+        if customer.points.current_points >= target.target_points:
+            battlepass_crud.update_target_status(target, 1, db)
+
+    return battlepass_crud.get_battlepass_with_targes(battlepass_requester.current_date, battlepass_requester.customer_id, db).__dict__
 
 @router.put("/", response_model=model.Battlepass)
 async def update_battlepass(battlepass: model.Battlepass, db: get_db = Depends()):
