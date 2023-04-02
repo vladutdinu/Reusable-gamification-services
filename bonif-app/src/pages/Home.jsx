@@ -1,4 +1,3 @@
-import Header from '../components/Header';
 import Welcome from '../components/Welcome';
 import Carousel from '../components/Carousel';
 import CardSection from '../components/CardSection';
@@ -14,7 +13,6 @@ const Home = () => {
   console.log(questData);
   return (
     <div className="Home">
-      <Header />
       <Welcome />
       {/* <PointsTracker /> */}
       <Carousel questData={questData} />
