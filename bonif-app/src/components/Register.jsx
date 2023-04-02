@@ -1,11 +1,10 @@
 import "./Login.scss";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import useAxiosPost from "../customHooks/useAxiosPost";
-import { useUser } from "../customHooks/useUser";
 import { useAuth } from "../customHooks/useAuth";
 
-import { Audio } from "react-loader-spinner";
+import { ColorRing } from "react-loader-spinner";
 
 export const Register = () => {
   const { data, loading, error, postData, response } = useAxiosPost(
@@ -28,14 +27,16 @@ export const Register = () => {
     }));
   };
 
-  const handleSubmit = async(event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    await postData(state);
-    if (data) {
-      login(data);
-      navigate("/home");
-    }
+    await postData(state).then((res) => handlePageNavigation(res));
   };
+
+
+  const handlePageNavigation = async (res)=>{
+    login(res);
+    navigate("/home");
+  }
 
   const handleArrowback = () => {
     navigate(-1);
@@ -49,7 +50,9 @@ export const Register = () => {
       <div className='text'>
         <p>Hello! Register to get started</p>
       </div>
-      <form onSubmit={handleSubmit} className='form-container'>
+      <form
+        onSubmit={(event) => handleSubmit(event)}
+        className='form-container'>
         <input
           type='text'
           name='name'
@@ -80,14 +83,14 @@ export const Register = () => {
         />
 
         {loading === true ? (
-          <Audio
+          <ColorRing
+            visible={true}
             height='80'
             width='80'
-            radius='9'
-            color='green'
-            ariaLabel='three-dots-loading'
-            wrapperStyle
-            wrapperClass
+            ariaLabel='blocks-loading'
+            wrapperStyle={{}}
+            wrapperClass='blocks-wrapper'
+            colors={["#e15b64", "#f47e60", "#f8b26a", "#abbd81", "#849b87"]}
           />
         ) : (
           <button type='submit'>Register</button>

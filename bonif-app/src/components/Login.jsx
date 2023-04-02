@@ -1,7 +1,13 @@
 import "./Login.scss";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import useAxiosPost from "../customHooks/useAxiosPost";
+import { useAuth } from "../customHooks/useAuth";
 export const Login = () => {
+  const { data, loading, error, postData, response } = useAxiosPost(
+    "http://localhost:8001/user/signIn"
+  );
+  const {login} = useAuth()
   const navigate = useNavigate()
   const [state, setState] = useState({
     email: "",
@@ -16,10 +22,16 @@ export const Login = () => {
     }));
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    console.log(state);
+    await postData(state).then((res) => handlePageNavigation(res));
   };
+
+
+  const handlePageNavigation = async (res)=>{
+    login(res);
+    navigate("/home");
+  }
 
   const handleArrowback = () => {
     navigate(-1)
