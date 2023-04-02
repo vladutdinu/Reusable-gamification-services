@@ -26,7 +26,7 @@ function App() {
     <div className="App">
       <Header />
       <Welcome />
-      <PointsTracker />
+      {/* <PointsTracker /> */}
       <Carousel questData={questData} />
       <CardSection qrCode={token?.data?.qr_code} name={userData?.data?.name} points={customerData?.data?.points?.points} />
       <div className="leaderboards-title">
