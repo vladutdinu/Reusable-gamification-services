@@ -44,6 +44,8 @@ async def get_battlepass_with_targets(battlepass_requester: model.BattlepassRequ
                 customer_id = customer.customer_id,
                 description = "Random description " + str(target.target_points),
                 discount = int(randint(0,100)),
+                points_required = int(randint(0,1000)),
+                product_id = 1,
                 code = "C"+str(target.target_points),
                 start_date = battlepass_requester.current_date,
                 end_date = battlepass_requester.current_date + timedelta(days=10)
