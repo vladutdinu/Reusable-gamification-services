@@ -34,3 +34,16 @@
         
     }
 }
+
+// Focused
+
+.outlay {
+    background: rgba(178, 53, 255, 0.01);
+        backdrop-filter: blur(16.5301px);
+        position: fixed;
+        top: 5%;
+        left: 0%;
+        right: 0%;
+        bottom: 0%;
+        z-index: 2;
+}

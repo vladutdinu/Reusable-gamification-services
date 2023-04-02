@@ -8,7 +8,7 @@ const Header = () => {
   const [openMenu, setOpenMenu] = useState(false);
   return (
     <>
-      <header className="header">
+      <header>
         <img src={coffeeUrl} alt="Coffee logo" className="coffe-logo" />
         <div className="title">Crazy Coffee</div>
         <img
@@ -20,7 +20,7 @@ const Header = () => {
           }}
         />
       </header>
-      {openMenu && <HamburgerMenu />}
+      {openMenu && <HamburgerMenu setOpenMenu={setOpenMenu} />}
     </>
   );
 };

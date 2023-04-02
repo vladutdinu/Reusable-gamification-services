@@ -27,12 +27,13 @@ export const Register = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    console.log(state);
     await postData(state).then((res) => handlePageNavigation(res));
   };
 
   const handlePageNavigation = async (res) => {
     login(res);
-    navigate('/home');
+    //navigate('/home');
   };
 
   const handleArrowback = () => {
@@ -48,6 +49,9 @@ export const Register = () => {
         <p>Hello! Register to get started</p>
       </div>
       <form onSubmit={(event) => handleSubmit(event)} className="form-container">
+        <input type="text" name="name" placeholder="Username" value={state.name} onChange={handleInputChange} />
+        <input type="email" name="email" placeholder="Enter email " value={state.email} onChange={handleInputChange} />
+        <input type="password" name="password" placeholder="Enter password" value={state.password} onChange={handleInputChange} />
         <input
           type="password"
           name="password2"
