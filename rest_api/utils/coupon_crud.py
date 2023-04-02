@@ -1,12 +1,14 @@
 from sqlalchemy.orm import Session
 from schemas import schema
 from models import model
+from utils import customer_crud
 
 def create_coupon(coupon: model.Coupon, db: Session):
     new_coupon = schema.Coupon(
         customer_id = coupon.customer_id,
         description = coupon.description,
         discount = coupon.discount,
+        points_required = coupon.points_required,
         code = coupon.code,
         start_date = coupon.start_date,
         end_date = coupon.end_date
@@ -29,14 +31,38 @@ def update_coupon(coupon: model.Coupon, db: Session):
         {
            "description": coupon.description,
            "discount": coupon.discount,
+           "points_required": coupon.points_required,
            "code": coupon.code,
            "start_date": coupon.start_date,
-           "end_date": coupon.end_date
+           "end_date": coupon.end_date,
+           "active": coupon.active
         }
     )
     db.commit()
     return result
 
+def activate_coupon(coupon_id: int, customer_id, db: Session):
+    coupon = get_coupon(coupon_id, db)
+    customer = customer_crud.get_customer_with_points_by_id(customer_id, db)
+    if coupon.points_required <= customer.points.current_points and coupon.done == 0:
+        coupon.active = 1
+        update_coupon(coupon, db)
+        return 1
+    else:
+        return 0 
+
+def use_coupon(coupon_id: int, customer_id, db: Session):
+    coupon = get_coupon(coupon_id, db)
+    customer = customer_crud.get_customer_with_points_by_id(customer_id, db)
+    if coupon.points_required <= customer.points.current_points and coupon.done == 0:
+        coupon.active = 1
+        update_coupon_status(coupon, 1, db)
+        customer.points.current_points -= coupon.points_required
+        customer_crud.update_customer_points(customer.points, db)
+        return 1
+    else:
+        return 0 
+    
 def update_coupon_status(coupon: model.Coupon, status: int, db: Session):
     result = db.query(schema.Coupon).filter(schema.Coupon.id == coupon.id).update(
         {

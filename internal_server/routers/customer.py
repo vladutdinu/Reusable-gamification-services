@@ -1,3 +1,4 @@
+from ctypes import Union
 from typing import List
 from fastapi import APIRouter, Depends, HTTPException, Response
 from utils import customer_crud
@@ -28,6 +29,11 @@ async def get_customer_by_id(customer_id: int, db: get_db = Depends()):
         return result
     else:
         raise HTTPException(status_code=400, detail="Customer doesnt exist")
+
+@router.post("/validate_token/", response_model=int)
+async def validate_token(validate: model.Validate, db: get_db = Depends()):
+    result = customer_crud.validate_token(validate, db)
+    return result
 
 @router.get("/{customer_name}", response_model=model.Customer)
 async def get_customer_by_name(customer_name: str, db: get_db = Depends()):

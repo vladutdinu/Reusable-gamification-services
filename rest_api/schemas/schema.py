@@ -50,10 +50,12 @@ class Coupon(Base):
     customer_id= Column(Integer, ForeignKey("customers.id"))
     description= Column(String)
     discount= Column(Integer)
+    points_required= Column(Integer)
     code= Column(String)
     start_date= Column(DateTime)
     end_date= Column(DateTime)
     done= Column(Integer, default=0)
+    active= Column(Integer, default=0)
 
 class Target(Base):
     __tablename__ = 'targets'

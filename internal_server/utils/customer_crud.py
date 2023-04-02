@@ -58,6 +58,14 @@ def get_customer_by_name(customer_name: str, db: Session):
     customer = db.query(schema.Customer).filter(schema.Customer.name == customer_name).first()
     return customer
 
+def validate_token(validate: model.Validate, db: Session):
+    customer = get_customer_by_id(validate.customer_id, db)
+    if customer.token.encode("utf-8") == validate.token.encode("utf-8"):
+        message = decrypt_message(validate.token.encode("utf-8"))
+        return json.loads(message.replace("'",'"'))['tier_picked']
+    return 0
+    
+
 def get_customers_tiers_type(db: Session):
     customers = db.query(schema.Customer).all()
     tiers = db.query(schema.Tier).all()
