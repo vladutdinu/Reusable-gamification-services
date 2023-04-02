@@ -5,7 +5,7 @@ from models import model
 import requests
 import os
 import json
-SHOP_URL = "http://localhost:8002"#os.environ['SHOP_URL']
+SHOP_URL = "http://localhost:8001"#os.environ['SHOP_URL']
 def create_spinning_wheel(spinning_wheel: model.SpinningWheel, db: Session):
     new_spinning_wheel = schema.SpinningWheel(
         start_date = spinning_wheel.start_date,
@@ -42,10 +42,14 @@ def get_spinning_wheel_with_rewards(current_date: date, db: Session):
     spinning_wheel = db.query(schema.SpinningWheel).filter(current_date <= schema.SpinningWheel.end_date).filter(current_date >= schema.SpinningWheel.start_date).first()
     _rewards = get_spinning_wheel_rewards(spinning_wheel.id, db)
     slices = []
+    i = 0
     for reward in _rewards:
-       result = requests.get(SHOP_URL+"/product/{}".format(reward.__dict__["product_id"])).json()
-       result["reward_id"] = reward.__dict__["id"]
-       slices.append(result)
+        i += 1
+        result = requests.get(SHOP_URL+"/product/{}".format(reward.__dict__["product_id"])).json()
+        result["reward_id"] = reward.__dict__["id"]
+        slices.append(result)
+        if i == 7:
+            break
     wheel_rewards = model.SpinningWheelRewards(
         slice=[model.SpinningWheelReward(
             id = _slice['reward_id'],

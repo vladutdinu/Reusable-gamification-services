@@ -6,7 +6,7 @@ import os
 import base64
 schema.Base.metadata.create_all(bind=engine)
 
-TOKEN = "gAAAAABkKNgDXjkxRgaXY3HF5WqLXymM6OlnrBK7LjR9D3-EAmVyBtU-QpJIfMcWzTVn3EfxzR4LyEQOnGMHRw3VTEK8YJhSn-_uQGzAao2hIe6ZYttJ-0Z3QWVn5_WMOPsRFyAFVdkWp5F3v9vFnboYgVrPrhA74A==" #os.environ["TOKEN"]
+TOKEN = "gAAAAABkKRjXA_vhog89RD5jzKi-U1WP6fgAfGBNxVbTDvNZHsGdzckZmeQXi1YkITtHFHLiwRB6dWjQwqO78Y2lk_3CCtusLn_-9wspMjPtFWOjbo40FOT8y9L0iSwp_-SvZQw6Bj_1rdHw4gdJJYb_HXx0zS5fZQ==" #os.environ["TOKEN"]
 
 tokens = [
     {

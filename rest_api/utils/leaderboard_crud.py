@@ -20,9 +20,9 @@ def get_leaderboard_result(current_date: date,  db: Session):
     customers = db.query(schema.Customer).all()
     result = model.LeaderboardResult(
         leaderboard_result = [model.LeaderboardObject(
-            index = customer.id,
-            name = customer.customer_id,
-            points = customer_crud.get_customer_with_points_by_id(customer.customer_id, db).__dict__['points'].points
+            index = customer.__dict__["id"],
+            name = customer.__dict__["customer_id"],
+            points = customer_crud.get_customer_with_points_by_id(customer.__dict__["customer_id"], db).__dict__['points'].points
         ) for customer in customers],
         start_date = leaderboard.start_date,
         end_date = leaderboard.end_date
