@@ -26,13 +26,10 @@ tier_picked = requests.post("http://localhost:8005/customer/validate_token/",
 app.include_router(token.router)
 app.include_router(customer.router)
 app.include_router(spinningwheel.router)
-
-#app.include_router(survey.router)
-if 3 <= 1 and 3 != 0:
+if int(tier_picked.text) <= 1 and int(tier_picked.text) != 0:
     app.include_router(quest.router)
     app.include_router(coupon.router)
-    app.include_router(spinningwheel.router)
-elif 3 <= 2 and 3 !=0:
+elif int(tier_picked.text) <= 2 and int(tier_picked.text) !=0:
     app.include_router(quest.router)
     app.include_router(coupon.router)
     app.include_router(leaderboard.router)
