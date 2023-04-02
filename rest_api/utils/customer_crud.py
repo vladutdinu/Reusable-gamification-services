@@ -20,8 +20,8 @@ def get_customer_by_id(customer_id: int, db: Session):
 
 def get_customer_with_points_by_id(customer_id: int, db: Session):
     customer = db.query(schema.Customer).filter(
-        schema.Customer.id == customer_id).first()
-    customer_points = db.query(schema.CustomerPoints).filter(schema.CustomerPoints.id == customer.points_id).first()
+        schema.Customer.customer_id == customer_id).first()
+    customer_points = db.query(schema.CustomerPoints).filter(schema.CustomerPoints.id == customer.__dict__["points_id"]).first()
     return model.CustomerWithPoints(
        id = customer.id,
        customer_id = customer.customer_id,
