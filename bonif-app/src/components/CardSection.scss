@@ -23,18 +23,32 @@
         
         .top-half {
                 background: linear-gradient(90deg, #F9A081 40%, #FF715B);
-                padding: 4rem;
-               border-top-left-radius: 22px;
+                padding: 1rem;
+                border-top-left-radius: 22px;
                 border-top-right-radius: 22px;
+                display: flex;
+                justify-content: space-between;
                 .black-coffee {
                 width: 2.2rem;
+                margin-top: -.7rem;
                 }
+                .qr-code {
+                    width: 40%;
+                    transform: translateX(-75%);    
+                }
+
+
             }
         .bottom-half {
             background-color: black;
-            padding: 2.3rem;
+            padding: 1rem;
             border-bottom-left-radius: 22px;
             border-bottom-right-radius: 22px;
-        }
+            color:white;
+            display: flex;
+            justify-content: space-between;
+            font-weight: 600;
+            font-size: 1rem;
+       }
     }
 }

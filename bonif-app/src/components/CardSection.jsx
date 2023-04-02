@@ -2,7 +2,7 @@ import './CardSection.scss';
 import coffeSpillUrl from '../assets/coffe_spilling.png';
 import { ReactComponent as BlackCoffee } from '../assets/black-coffee.svg';
 
-const CardSection = () => {
+const CardSection = ({ qrCode, name, points }) => {
   return (
     <div className="card-section">
       <section className="before-card">
@@ -15,8 +15,12 @@ const CardSection = () => {
       <div className="points-card">
         <div className="top-half">
           <BlackCoffee className="black-coffee" />
+          <img src={qrCode} alt="QR Code" className="qr-code" />
         </div>
-        <div className="bottom-half"></div>
+        <div className="bottom-half">
+          <div className="name">{name}</div>
+          <div className="points"> {points} points</div>
+        </div>
       </div>
     </div>
   );
