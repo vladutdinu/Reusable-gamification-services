@@ -6,6 +6,7 @@ class CustomerPoints(Base):
 
     id = Column(Integer, primary_key=True, index=True, autoincrement=True) 
     points= Column(Integer)
+    current_points = Column(Integer)
 
 class Customer(Base):
     __tablename__ = 'customers'
@@ -84,3 +85,10 @@ class SpinningWheel(Base):
     id = Column(Integer, primary_key=True, index=True, autoincrement=True) 
     start_date= Column(DateTime)
     end_date= Column(DateTime)
+
+class SpinningWheelRewards(Base):
+    __tablename__ = 'spinningwheelrewards'
+
+    id = Column(Integer, primary_key=True, index=True, autoincrement=True) 
+    product_id= Column(Integer)
+    spinning_wheel_id= Column(Integer, ForeignKey("spinningwheels.id"))

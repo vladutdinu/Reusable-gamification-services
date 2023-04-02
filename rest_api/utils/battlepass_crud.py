@@ -2,6 +2,7 @@ from sqlalchemy.orm import Session
 from schemas import schema
 from models import model
 from datetime import date
+from utils import customer_crud
 
 def create_target(target: model.Target, db: Session):
     new_target = schema.Target(
@@ -88,8 +89,10 @@ def get_battlepass_by_date(current_date: date, customer_id: int,db: Session):
 def get_battlepass_with_targes(current_date: date, customer_id: int, db: Session):
     _battlepass = get_battlepass_by_date(current_date, customer_id, db)
     _targets = get_targets(_battlepass.__dict__["id"], db)
+    _customer = customer_crud.get_customer_with_points_by_id(customer_id, db)
     battlepass = model.BattlepassTarget(
         targets = [model.Target(**target.__dict__) for target in _targets],
+        customer=_customer.__dict__,
         start_date = _battlepass.start_date,
         end_date = _battlepass.end_date
     )

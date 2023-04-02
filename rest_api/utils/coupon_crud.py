@@ -50,4 +50,3 @@ def delete_coupon(coupon_id: int, db: Session):
     result = db.query(schema.Coupon).filter(schema.Coupon.id == coupon_id).delete()
     db.commit()
     return result
-

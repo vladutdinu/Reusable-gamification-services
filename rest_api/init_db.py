@@ -1,7 +1,7 @@
 from schemas import schema
 from models import model
 from database import SessionLocal, engine
-from utils import token_crud, qr_code, monster_crud, customer_crud, quest_crud, coupon_crud, spinningwheel_crud, leaderboard_crud, battlepass_crud
+from utils import token_crud, qr_code, monster_crud, leaderboard_crud, customer_crud, quest_crud, coupon_crud, spinningwheel_crud, leaderboard_crud, battlepass_crud
 import os
 import base64
 schema.Base.metadata.create_all(bind=engine)
@@ -113,6 +113,17 @@ quests = [
         "end_date": "2023-04-05",
     },
     {
+        "customer_id": 1,
+        "quest": "Buy 4 sandwiches",
+        "target_quantity": 4,
+        "type": "Montly",
+        "quantity": 0,
+        "product_id": 4,
+        "points": 100,
+        "start_date": "2023-04-01",
+        "end_date": "2023-04-05",
+    },
+    {
         "customer_id": 2,
         "quest": "Buy 1 coffe",
         "target_quantity": 1,
@@ -133,7 +144,18 @@ quests = [
         "points": 100,
         "start_date": "2023-04-01",
         "end_date": "2023-04-05",
-    }
+    },
+     {
+        "customer_id": 2,
+        "quest": "Buy 4 sandwiches",
+        "target_quantity": 4,
+        "type": "Montly",
+        "quantity": 0,
+        "product_id": 4,
+        "points": 100,
+        "start_date": "2023-04-01",
+        "end_date": "2023-04-05",
+    },
 ]
 
 for quest in quests:
@@ -201,4 +223,47 @@ for target in targets:
         product_id=target['product_id'],
         target_points=target['target_points'],
         battlepass_id=target['battlepass_id']
+    ), SessionLocal())
+
+leaderboard_crud.create_leaderboard(model.Leaderboard(
+    start_date = "2023-04-01",
+    end_date = "2023-04-05",
+), SessionLocal())
+
+spinningwheel_crud.create_spinning_wheel(model.SpinningWheel(
+    start_date = "2023-04-01",
+    end_date = "2023-04-05",
+), SessionLocal())
+
+sw_rewards = [
+    {
+        "product_id": 1,
+        "spinning_wheel_id": 1
+    },
+    {
+        "product_id": 2,
+        "spinning_wheel_id": 1
+    },
+    {
+        "product_id": 3,
+        "spinning_wheel_id": 1
+    },
+    {
+        "product_id": 4,
+        "spinning_wheel_id": 1
+    },
+    {
+        "product_id": 5,
+        "spinning_wheel_id": 1
+    },
+    {
+        "product_id": 6,
+        "spinning_wheel_id": 1
+    },
+]
+
+for sw_reward in sw_rewards:
+    spinningwheel_crud.create_spinning_wheel_reward(model.SpinningWheelReward(
+        product_id = sw_reward['product_id'],
+        spinning_wheel_id = sw_reward['spinning_wheel_id']
     ), SessionLocal())
