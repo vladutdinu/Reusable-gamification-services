@@ -1,14 +1,29 @@
 .App {
-    padding-top: 15vh;
+    padding-top: 9vh;
     overflow-x: hidden;
     display: flex;
     flex-direction: column;
     gap: 2rem;
 
-    .quests-container {
+    .leaderboards-title {
         display: flex;
-        gap: 2rem;
-        color: white;
+        gap: .8rem;
+        margin-top: -1rem;
+    
+        .text {
+            align-self: center;
+            display: flex;
+            flex-direction: column;
+            gap: .5rem;
+            .title {
+                font-weight: 600;
+                font-size: 1.4rem;
+            }
+            .description {
+                line-height: 1.4rem;
+            }
+        }
     }
+
 
 }
