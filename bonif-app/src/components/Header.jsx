@@ -6,6 +6,9 @@ import HamburgerMenu from './HamburgerMenu';
 
 const Header = () => {
   const [openMenu, setOpenMenu] = useState(false);
+  const handleClose = () => {
+    setOpenMenu(!openMenu)
+  }
   return (
     <>
       <header className="header">
@@ -20,7 +23,7 @@ const Header = () => {
           }}
         />
       </header>
-      {openMenu && <HamburgerMenu />}
+      {openMenu && <HamburgerMenu onClose={handleClose} />}
     </>
   );
 };

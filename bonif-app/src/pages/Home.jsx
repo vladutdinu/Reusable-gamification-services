@@ -4,13 +4,14 @@ import CardSection from '../components/CardSection';
 import useAxiosGet from '../helpers/useAxiosGet';
 import coffeesUrl from '../assets/2cofee_cups.png';
 import './Home.scss';
+import { useAuth } from '../customHooks/useAuth';
 
 const Home = () => {
   const questData = useAxiosGet('http://localhost:8002/quest/all/1');
   const token = useAxiosGet('http://localhost:8002/token/1');
   const userData = useAxiosGet('http://localhost:8001/user/id/1');
   const customerData = useAxiosGet('http://localhost:8002/customer/1');
-  console.log(questData);
+  
   return (
     <div className="Home">
       <Welcome />

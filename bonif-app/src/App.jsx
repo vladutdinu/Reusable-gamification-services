@@ -13,6 +13,7 @@ import { AuthContext } from './context/AuthContext';
 import Home from './pages/Home';
 import Coupons from './pages/Coupons';
 import Header from './components/Header';
+import { SpinningWheel } from './components/SpinningWheel';
 
 function App() {
   const [user, setUser] = useState('');
@@ -25,6 +26,7 @@ function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/home" element={<Home />} />
         <Route path="/coupons" element={<Coupons />} />
+        <Route path="/spinning-wheel" element={<SpinningWheel />} />
         <Route path="*" element={<LoginRegister />} />
       </Routes>
     </AuthContext.Provider>

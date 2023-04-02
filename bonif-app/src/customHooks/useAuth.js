@@ -6,6 +6,7 @@ export const useAuth = () => {
   const { user, addUser, removeUser } = useUser();
   const { getItem } = useLocalStorage();
   const [isAuthenticated, setIsAuthenthicated] = useState(false)
+  const [authUser, setAuthUser] = useState({})
 
   useEffect(() => {
     const user = getItem('user');
@@ -16,6 +17,7 @@ export const useAuth = () => {
 
   const login = (user) => {
     addUser(user);
+    setAuthUser(user)
     setIsAuthenthicated(true)
   };
 
@@ -23,5 +25,5 @@ export const useAuth = () => {
     removeUser();
   };
 
-  return { user, login, logout, isAuthenticated };
+  return { user, login, logout, isAuthenticated, authUser, setAuthUser };
 };

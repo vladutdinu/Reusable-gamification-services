@@ -2,11 +2,17 @@ import './Login.scss';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import useAxiosPost from '../customHooks/useAxiosPost';
+import axios from "axios";
 import { useAuth } from '../customHooks/useAuth';
 export const Login = () => {
-  const { data, loading, error, postData, response } = useAxiosPost('http://localhost:8001/user/signIn');
   const { login } = useAuth();
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
+  const [responseStatus, setResponseStatus] = useState("");
+  const [data, setData] = useState({
+    email: "",
+    password: "",
+  });
   const [state, setState] = useState({
     email: '',
     password: ''
@@ -21,13 +27,30 @@ export const Login = () => {
   };
 
   const handleSubmit = async (event) => {
-    event.preventDefault();
-    await postData(state).then((res) => handlePageNavigation(res));
-  };
-
-  const handlePageNavigation = async (res) => {
-    login(res);
-    navigate('/home');
+    event.preventDefault()
+    const url = "http://localhost:8001/user/logIn";
+    setLoading(true);
+    const payload = {
+      email: state.email,
+      password: state.password,
+    };
+    try {
+        axios.post(url, payload).then((res) => {
+          if(res.status === 200){
+            setData(res.config.data)
+            login(res.config.data)
+          }
+        });
+    } catch (err) {
+      console.log(err);
+    } finally {
+      setLoading(false);
+    }
+    if (!loading) {
+      navigate("/home");
+    } else if (data){
+      navigate("/home")
+    }
   };
 
   const handleArrowback = () => {
