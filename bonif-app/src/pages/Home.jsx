@@ -26,7 +26,6 @@ const Home = () => {
           <div className="description">See the craziest guys of the community.</div>
         </div>
       </div>
-      {/* <Leaderboard  /> */}
     </div>
   );
 };
