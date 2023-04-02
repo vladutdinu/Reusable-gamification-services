@@ -6,12 +6,14 @@ from utils import customer_crud
 def create_coupon(coupon: model.Coupon, db: Session):
     new_coupon = schema.Coupon(
         customer_id = coupon.customer_id,
+        product_id = coupon.product_id,
         description = coupon.description,
         discount = coupon.discount,
         points_required = coupon.points_required,
         code = coupon.code,
         start_date = coupon.start_date,
-        end_date = coupon.end_date
+        end_date = coupon.end_date,
+        active = 0
     )
     db.add(new_coupon)
     db.commit()
@@ -34,8 +36,7 @@ def update_coupon(coupon: model.Coupon, db: Session):
            "points_required": coupon.points_required,
            "code": coupon.code,
            "start_date": coupon.start_date,
-           "end_date": coupon.end_date,
-           "active": coupon.active
+           "end_date": coupon.end_date
         }
     )
     db.commit()

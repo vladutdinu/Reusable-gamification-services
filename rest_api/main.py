@@ -20,23 +20,22 @@ api_token = token_crud.get_token(1, SessionLocal())
 tier_picked = requests.post("http://localhost:8005/customer/validate_token/",
     data=json.dumps({
         "token": api_token.__dict__['token'],
-        "customer_id": 1
+        "customer_id": 14
     })
 )
 app.include_router(token.router)
 app.include_router(customer.router)
 
-
-if 3<= 1 and 3!= 0:
+if int(tier_picked.text) <= 1 and int(tier_picked.text) != 0:
     app.include_router(quest.router)
     app.include_router(coupon.router)
    # app.include_router(spinningwheel.router)
-elif 3<= 2 and 3!=0:
+elif int(tier_picked.text)<= 2 and int(tier_picked.text)!=0:
     app.include_router(quest.router)
     app.include_router(coupon.router)
     app.include_router(leaderboard.router)
     app.include_router(spinningwheel.router)
-elif 3<= 3 and 3!=0:
+elif int(tier_picked.text)<= 3 and int(tier_picked.text)!=0:
     app.include_router(quest.router)
     app.include_router(coupon.router)
     app.include_router(leaderboard.router)

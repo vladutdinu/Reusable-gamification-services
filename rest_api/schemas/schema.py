@@ -48,6 +48,7 @@ class Coupon(Base):
 
     id = Column(Integer, primary_key=True, index=True, autoincrement=True)
     customer_id= Column(Integer, ForeignKey("customers.id"))
+    product_id= Column(Integer)
     description= Column(String)
     discount= Column(Integer)
     points_required= Column(Integer)

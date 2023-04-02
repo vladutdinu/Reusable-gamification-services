@@ -6,7 +6,7 @@ import os
 import base64
 schema.Base.metadata.create_all(bind=engine)
 
-TOKEN = "gAAAAABkKNgCo1djL1fxDlvuP-231BHbIXW6r5NWY-XfnwgF9LOZVCr6S6BiGcr-7tAkzVlhidlDSSwS9XGtGWnVV2kE3k6lb1o7DvlzcqejlunJjHIXR9Xv1HgaP2pswOT_7iAoIlMOZStHR1mEoarrxOoGguKBGQ==" #os.environ["TOKEN"]
+TOKEN = "gAAAAABkKNgDXjkxRgaXY3HF5WqLXymM6OlnrBK7LjR9D3-EAmVyBtU-QpJIfMcWzTVn3EfxzR4LyEQOnGMHRw3VTEK8YJhSn-_uQGzAao2hIe6ZYttJ-0Z3QWVn5_WMOPsRFyAFVdkWp5F3v9vFnboYgVrPrhA74A==" #os.environ["TOKEN"]
 
 tokens = [
     {
@@ -45,6 +45,7 @@ for customer in customers:
 coupons = [
     {
         "customer_id": 1,
+        "product_id": 1,
         "description": "Get discount on your next coffe",
         "discount": 10,
         "points_required": 100,
@@ -54,6 +55,7 @@ coupons = [
     },
     {
         "customer_id": 1,
+        "product_id": 4,
         "description": "Get discount on your next sandwich",
         "discount": 10,
         "points_required": 300,
@@ -63,6 +65,7 @@ coupons = [
     },
     {
         "customer_id": 2,
+        "product_id": 6,
         "description": "Get discount on your next drink",
         "discount": 10,
         "points_required": 200,
@@ -72,6 +75,7 @@ coupons = [
     },
     {
         "customer_id": 2,
+        "product_id": 5,
         "description": "Get discount on your next sandwich",
         "discount": 10,
         "points_required": 400,
@@ -85,6 +89,7 @@ for coupon in coupons:
     coupon_crud.create_coupon(
         model.Coupon(
             customer_id = coupon['customer_id'],
+            product_id = coupon['product_id'],
             description = coupon['description'],
             discount = coupon['discount'],
             points_required = coupon['points_required'],
