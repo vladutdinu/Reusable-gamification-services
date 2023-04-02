@@ -1,10 +1,10 @@
 import './Login.scss';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import useAxiosPost from '../customHooks/useAxiosPost';
 import { useAuth } from '../customHooks/useAuth';
 
-import { Audio } from 'react-loader-spinner';
+import { ColorRing } from 'react-loader-spinner';
 
 export const Register = () => {
   const { data, loading, error, postData, response } = useAxiosPost('http://localhost:8001/user/signUp');
@@ -27,11 +27,12 @@ export const Register = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    await postData(state);
-    if (data) {
-      login(data);
-      navigate('/home');
-    }
+    await postData(state).then((res) => handlePageNavigation(res));
+  };
+
+  const handlePageNavigation = async (res) => {
+    login(res);
+    navigate('/home');
   };
 
   const handleArrowback = () => {
@@ -46,10 +47,7 @@ export const Register = () => {
       <div className="text">
         <p>Hello! Register to get started</p>
       </div>
-      <form onSubmit={handleSubmit} className="form-container">
-        <input type="text" name="name" placeholder="Username" value={state.name} onChange={handleInputChange} />
-        <input type="email" name="email" placeholder="Email" value={state.email} onChange={handleInputChange} />
-        <input type="password" name="password" placeholder="Password" value={state.password} onChange={handleInputChange} />
+      <form onSubmit={(event) => handleSubmit(event)} className="form-container">
         <input
           type="password"
           name="password2"
@@ -59,7 +57,15 @@ export const Register = () => {
         />
 
         {loading === true ? (
-          <Audio height="80" width="80" radius="9" color="green" ariaLabel="three-dots-loading" wrapperStyle wrapperClass />
+          <ColorRing
+            visible={true}
+            height="80"
+            width="80"
+            ariaLabel="blocks-loading"
+            wrapperStyle={{}}
+            wrapperClass="blocks-wrapper"
+            colors={['#e15b64', '#f47e60', '#f8b26a', '#abbd81', '#849b87']}
+          />
         ) : (
           <button type="submit">Register</button>
         )}
