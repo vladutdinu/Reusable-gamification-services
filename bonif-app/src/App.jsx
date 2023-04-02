@@ -10,11 +10,9 @@ import { Login } from './components/Login';
 import { Register } from './components/Register';
 import './components/LoginRegister.scss';
 import { AuthContext } from './context/AuthContext';
-import { useAuth } from './customHooks/useAuth';
 import Home from './pages/Home';
 
 function App() {
-  const { isAuthenticated } = useAuth();
   const [user, setUser] = useState('');
   return (
     <AuthContext.Provider value={{ user, setUser }}>

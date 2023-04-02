@@ -4,6 +4,7 @@ import Carousel from '../components/Carousel';
 import CardSection from '../components/CardSection';
 import useAxiosGet from '../helpers/useAxiosGet';
 import coffeesUrl from '../assets/2cofee_cups.png';
+import './Home.scss';
 
 const Home = () => {
   const questData = useAxiosGet('http://localhost:8002/quest/all/1');
