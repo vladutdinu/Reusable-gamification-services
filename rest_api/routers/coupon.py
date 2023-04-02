@@ -45,9 +45,17 @@ async def update_coupon(coupon: model.Coupon, db: get_db = Depends()):
     else:
         raise HTTPException(status_code=400, detail="Coupon doesnt exist")
 
+@router.put("/use/")
+async def use_coupon(coupon_id: int, customer_id, db: get_db = Depends()):
+    return coupon_crud.use_coupon(coupon_id, customer_id, db)
+
+@router.put("/activate/")
+async def activate_coupon(coupon_id: int, customer_id, db: get_db = Depends()):
+    return coupon_crud.activate_coupon(coupon_id, customer_id, db)
+
 @router.put("/", response_model=model.Coupon)
-async def update_coupon_status(coupon_id: int, db: get_db = Depends()):
-    result = coupon_crud.update_coupon_status(coupon_id, db)
+async def update_coupon_status(coupon_id: int, status: int, db: get_db = Depends()):
+    result = coupon_crud.update_coupon_status(coupon_id, status, db)
     if result:
         return coupon_crud.get_coupon(coupon_id, db).__dict__
     else:

@@ -1,4 +1,3 @@
-secret.key
 sql_app.db
 __pycache__/*
 [a-zA-Z]/__pycache__/

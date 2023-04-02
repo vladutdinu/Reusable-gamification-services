@@ -47,13 +47,16 @@ class Quest(BaseModel):
 
 class Coupon(BaseModel):
     id: Optional[int]
+    points_required: int
     customer_id: int
+    product_id: int
     description: str
     discount: int
     code: str
     start_date: date
     end_date: date
     done: Optional[int] 
+    active: Optional[int]
 
 class Target(BaseModel):
     id: Optional[int] 
