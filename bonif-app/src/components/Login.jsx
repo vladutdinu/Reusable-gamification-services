@@ -27,7 +27,8 @@ export const Login = () => {
 
   const handlePageNavigation = async (res) => {
     login(res);
-    navigate('/home');
+    console.log(res);
+    //navigate('/home');
   };
 
   const handleArrowback = () => {

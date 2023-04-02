@@ -1,5 +1,5 @@
 from fastapi import Depends, FastAPI
-from routers import token, coupon, quest, battlepass, customer, monster, leaderboard, spinningwheel, survey
+from routers import token, coupon, quest, battlepass, customer, monster, leaderboard, spinningwheel
 import models, schemas
 from utils import token_crud
 from database import SessionLocal, engine
@@ -27,16 +27,16 @@ app.include_router(token.router)
 app.include_router(customer.router)
 
 
-if int(tier_picked.text) <= 1 and int(tier_picked.text) != 0:
+if 3<= 1 and 3!= 0:
     app.include_router(quest.router)
     app.include_router(coupon.router)
    # app.include_router(spinningwheel.router)
-elif int(tier_picked.text) <= 2 and int(tier_picked.text) !=0:
+elif 3<= 2 and 3!=0:
     app.include_router(quest.router)
     app.include_router(coupon.router)
     app.include_router(leaderboard.router)
     app.include_router(spinningwheel.router)
-elif int(tier_picked.text) <= 3 and int(tier_picked.text) !=0:
+elif 3<= 3 and 3!=0:
     app.include_router(quest.router)
     app.include_router(coupon.router)
     app.include_router(leaderboard.router)

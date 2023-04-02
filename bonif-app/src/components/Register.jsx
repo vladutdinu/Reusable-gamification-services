@@ -27,12 +27,13 @@ export const Register = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    console.log(state);
     await postData(state).then((res) => handlePageNavigation(res));
   };
 
   const handlePageNavigation = async (res) => {
     login(res);
-    navigate('/home');
+    //navigate('/home');
   };
 
   const handleArrowback = () => {

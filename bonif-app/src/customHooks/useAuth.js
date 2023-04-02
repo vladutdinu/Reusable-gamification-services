@@ -5,7 +5,7 @@ import { useLocalStorage } from './useLocalStorage';
 export const useAuth = () => {
   const { user, addUser, removeUser } = useUser();
   const { getItem } = useLocalStorage();
-  const [isAuthenticated, setIsAuthenthicated] = useState(false)
+  const [isAuthenticated, setIsAuthenthicated] = useState(false);
 
   useEffect(() => {
     const user = getItem('user');
@@ -16,7 +16,7 @@ export const useAuth = () => {
 
   const login = (user) => {
     addUser(user);
-    setIsAuthenthicated(true)
+    setIsAuthenthicated(true);
   };
 
   const logout = () => {
