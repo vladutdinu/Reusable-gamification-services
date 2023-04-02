@@ -5,6 +5,7 @@ import useAxiosGet from '../helpers/useAxiosGet';
 import coffeesUrl from '../assets/2cofee_cups.png';
 import Header from '../components/Header';
 import './Home.scss';
+import Leaderboards from '../components/Leaderboards';
 
 const Home = () => {
   const questData = useAxiosGet('http://localhost:8002/quest/all/1');
@@ -26,6 +27,7 @@ const Home = () => {
           <div className="description">See the craziest guys of the community.</div>
         </div>
       </div>
+      <Leaderboards />
     </div>
   );
 };
