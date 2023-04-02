@@ -3,15 +3,20 @@ import Header from '../components/Header';
 import useAxiosGet from '../helpers/useAxiosGet';
 import './Coupons.scss';
 import axios from 'axios';
+import { useEffect } from 'react';
 
 const Coupons = () => {
   const [showList, setShowList] = useState('left');
   const customerPoints = useAxiosGet('http://localhost:8002/customer/points/1');
   const allcoupons = useAxiosGet('http://localhost:8002/coupon/all/1');
   const active = [];
-  allcoupons?.data?.forEach((coupon) => {
-    if (coupon.active) active.push(coupon);
-  });
+  useEffect(() => {
+    allcoupons?.data?.forEach((coupon) => {
+      console.log(coupon)
+      if (coupon.active === 1) active.push(coupon);
+  })
+  console.log(allcoupons)
+  }, [allcoupons]);
 
   const changeStatusCoupon = async (e) => {
     if (e.target.classList.contains('activate')) {
@@ -60,9 +65,9 @@ const Coupons = () => {
         <div className="all-coupons" onClick={showLeft}>
           All ({allcoupons?.data?.length})
         </div>
-        <div className="active-coupons" onClick={showRight}>
+        {/* <div className="active-coupons" onClick={showRight}>
           Active ({active.length})
-        </div>
+        </div> */}
       </div>
       <div className={`bar-show-${showList}`}></div>
       <div className="list-coupons">
@@ -90,7 +95,38 @@ const Coupons = () => {
                 </div>
               );
             })
-          : ''}
+          : (allcoupons?.data?.map((coupon, i) => {
+            {coupon.active}
+                <div key={i} className="coupon">
+                <div className="title">{coupon.active}</div>
+                {
+                  coupon.active == 1 ? 
+                  <>
+                  <div className="title">{coupon.description}</div>
+                  <div className="top-side">
+                    <div className="title">{coupon.description}</div>
+                    <div className="cost-points">Cost: {coupon.points_required} points </div>
+                    <div className="available">
+                      Available: {coupon.start_date.substring(8, 10)}.{coupon.start_date.substring(5, 7)} -{' '}
+                      {coupon.end_date.substring(8, 10)}.{coupon.end_date.substring(5, 7)}.{coupon.end_date.substring(0, 4)}
+                    </div>
+                  </div>
+                  {coupon.active === 1 ? (
+                    <div className="activated" id={coupon.id} data-id={coupon.customer_id} onClick={changeStatusCoupon}>
+                      Activated
+                    </div>
+                  ) : (
+                    <div className="activate" id={coupon.id} data-id={coupon.customer_id} onClick={changeStatusCoupon}>
+                      Activate
+                    </div>
+                  )}
+                  </>
+                  : 
+             <></>
+             }
+                </div>
+             
+              }))}
       </div>
     </div>
   );

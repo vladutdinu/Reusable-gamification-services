@@ -6,6 +6,9 @@ import HamburgerMenu from './HamburgerMenu';
 
 const Header = () => {
   const [openMenu, setOpenMenu] = useState(false);
+  const handleClose = () => {
+    setOpenMenu(!openMenu)
+  }
   return (
     <>
       <header>
