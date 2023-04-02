@@ -12,8 +12,7 @@ def create_coupon(coupon: model.Coupon, db: Session):
         points_required = coupon.points_required,
         code = coupon.code,
         start_date = coupon.start_date,
-        end_date = coupon.end_date,
-        active = 0
+        end_date = coupon.end_date
     )
     db.add(new_coupon)
     db.commit()

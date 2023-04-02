@@ -1,0 +1,15 @@
+version: '3'
+services:
+  rest_api:
+    container_name: rest_api
+    image: rest_api:latest
+    networks:
+      - nw
+    ports:
+      - "rest_api:rest_api"
+
+volumes:
+  store:
+
+networks:
+  nw:
